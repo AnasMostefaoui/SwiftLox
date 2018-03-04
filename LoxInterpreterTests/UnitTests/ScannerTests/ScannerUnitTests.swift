@@ -78,6 +78,17 @@ class ScannerUnitTests: XCTestCase {
         
         
         XCTAssertEqual(tokens.count, stringSource.count + 1)
+    }
+    
+    
+    func test_if_it_can_detect_unexpected_character() {
+        let stringSource = "!?*="
+        var itHasError = false
         
+        scanner.source = stringSource
+        _ = scanner.scan()
+        let errors = scanner.errors
+        itHasError = errors.isEmpty == false
+        XCTAssertTrue(itHasError)
     }
 }

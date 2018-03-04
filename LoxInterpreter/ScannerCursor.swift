@@ -23,6 +23,10 @@ public class ScannerCursor {
         
     }
     
+    public var endOfFile:Bool {
+        return currentPosition == source.endIndex
+    }
+    
     // move the cursor to the next position
     public func next() {
         self.startPosition = self.currentPosition
@@ -64,4 +68,5 @@ public class ScannerCursor {
         self.seek(by: -numberOfCharacter)
         return aheadCharacters
     }
+    
 }

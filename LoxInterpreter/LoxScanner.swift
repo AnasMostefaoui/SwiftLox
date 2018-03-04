@@ -10,10 +10,6 @@ import Foundation
 
 public class LoxScanner : ScannerInterface {
     
-    private var endOfFile:Bool {
-        return self.cursor.currentPosition == source.endIndex
-    }
-    
     public var source: String = "" {
         didSet{
             // create a new scanner each time a new source is set
@@ -27,17 +23,18 @@ public class LoxScanner : ScannerInterface {
     
 
     public func scan() -> [Token] {
-        // clear previous scan tokens
-        self.tokens = []
-        
+
         guard source.isEmpty == false else {
             return []
         }
         
+        // clear previous scan tokens
+        self.tokens = []
+        
         repeat {
             self.cursor.next()
             self.scanToken()
-        } while(self.endOfFile == false)
+        } while(self.cursor.endOfFile == false)
         
         let eofToken = Token(type: .eof, literal: nil, line: 1)
         tokens.append(eofToken)
