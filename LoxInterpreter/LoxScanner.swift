@@ -11,29 +11,31 @@ import Foundation
 public class LoxScanner : ScannerInterface {
     
     private var endOfFile:Bool {
-        return currentCharacterPosition >= source.count
+        return self.cursor.currentPosition == source.endIndex
     }
     
-    public var source: String = ""
+    public var source: String = "" {
+        didSet{
+            // create a new scanner each time a new source is set
+            self.cursor = ScannerCursor(source: &source)
+        }
+    }
+    
     public private(set) var tokens: [Token] = []
     public private(set) var errors: [LoxError] = []
+    private var cursor:ScannerCursor!
     
-    private var start:Int = 0
-    private var currentCharacterPosition:Int = 0
-    var line:Int = 1
-    
-    public init() {
-        
-    }
-    
+
     public func scan() -> [Token] {
+        // clear previous scan tokens
+        self.tokens = []
         
         guard source.isEmpty == false else {
             return []
         }
         
         repeat {
-            self.start = self.currentCharacterPosition
+            self.cursor.next()
             self.scanToken()
         } while(self.endOfFile == false)
         
@@ -57,7 +59,7 @@ public class LoxScanner : ScannerInterface {
         
         guard let tokenType = matchedType else {
             let error = LoxError(fileName: "",
-                                 lineNumber: line,
+                                 lineNumber: self.cursor.line,
                                  message: "Unexpected character: \(character)", location: "")
             self.emit(error: error)
             return
@@ -65,7 +67,7 @@ public class LoxScanner : ScannerInterface {
 
         // update the cursor position if if matched up with look ahead
         if tokenType.rawValue == aheadString {
-            self.currentCharacterPosition += lookAheadOffset
+            self.cursor.seek(by: lookAheadOffset)
         }
         
         let token = Token(type: tokenType, literal: nil, line: 1)
@@ -98,29 +100,10 @@ public class LoxScanner : ScannerInterface {
 //    }
     
     internal func nextCharacter() -> Character? {
-        guard self.currentCharacterPosition < source.count else {
-            return nil
-        }
-        let nextCharacterIndex = source.index(source.startIndex, offsetBy: currentCharacterPosition)
-
-        self.currentCharacterPosition += 1
-        let character = source[nextCharacterIndex]
-        return character
+        return cursor.nextCharacter()
     }
     
-    func lookAhead(by numberOfCharacter:Int) -> String? {
-        var characters:[Character] = []
-        
-        for _ in 0..<numberOfCharacter {
-            guard let character = self.nextCharacter() else {
-                return nil
-            }
-            characters.append(character)
-        }
-        let aheadCharacters = String(characters)
-        
-        // reset the cursor to the original position before the lookahead
-        self.currentCharacterPosition -= numberOfCharacter
-        return aheadCharacters
+    internal func lookAhead(by numberOfCharacter:Int) -> String? {
+        return self.cursor.lookAhead(by:numberOfCharacter)
     }
 }

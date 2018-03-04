@@ -1,0 +1,67 @@
+//
+//  ScannerCursor.swift
+//  LoxInterpreter
+//
+//  Created by MOSTEFAOUI Anas on 05/03/2018.
+//  Copyright © 2018 Nyris. All rights reserved.
+//
+
+import Foundation
+
+public class ScannerCursor {
+    
+    public var startPosition:String.Index
+    public var currentPosition:String.Index
+    private let source:String
+    public private(set) var line:Int = 1
+    
+    init(source: inout String) {
+        self.startPosition = source.startIndex
+        self.currentPosition = self.startPosition
+        // keep a read only referance to the source to manipulate the cursor
+        self.source = source
+        
+    }
+    
+    // move the cursor to the next position
+    public func next() {
+        self.startPosition = self.currentPosition
+    }
+    
+    public func nextCharacter() -> Character? {
+        guard currentPosition != source.endIndex else {
+            return nil
+        }
+        
+        let character = source[currentPosition]
+        // move the cursor
+        self.seek(by: 1)
+        return character
+    }
+    
+    public func seek(by offset:Int) {
+        let boundIndex = offset < 0 ? source.startIndex : source.endIndex
+        
+        // reset the cursor to the original position before the lookahead
+        let index = source.index(currentPosition,
+            offsetBy: offset,
+            limitedBy: boundIndex) ?? boundIndex
+        currentPosition = index
+    }
+    
+    public func lookAhead(by numberOfCharacter:Int) -> String? {
+        var characters:[Character] = []
+        
+        for _ in 0..<numberOfCharacter {
+            guard let character = self.nextCharacter() else {
+                return nil
+            }
+            characters.append(character)
+        }
+        let aheadCharacters = String(characters)
+        
+        // reset the cursor to the original position before the lookahead
+        self.seek(by: -numberOfCharacter)
+        return aheadCharacters
+    }
+}

@@ -36,7 +36,6 @@ class ScannerUnitTests: XCTestCase {
     
     func test_if_it_can_scan_two_character_tokens() {
         let source = ">=.!=*;"
-        let tokensNumber = source.count + 1 // end of file token
         var itHasGreaterOrEqual = false
         var itHasNotEqual = false
         
@@ -76,6 +75,9 @@ class ScannerUnitTests: XCTestCase {
         
         XCTAssertTrue(itHasStar)
         itHasStar = false
+        
+        
+        XCTAssertEqual(tokens.count, stringSource.count + 1)
         
     }
 }

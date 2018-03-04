@@ -18,6 +18,7 @@
 		A85D46E2204C658800DA086D /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85D46AE204C587300DA086D /* Token.swift */; };
 		A85D46E3204C658800DA086D /* LoxInterpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85D46A6204C2B9000DA086D /* LoxInterpreter.swift */; };
 		A85D46E6204C678600DA086D /* ScannerUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85D46C0204C642300DA086D /* ScannerUnitTests.swift */; };
+		A85D46E8204C97E200DA086D /* ScannerCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85D46E7204C97E200DA086D /* ScannerCursor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		A85D46CF204C657A00DA086D /* LoxInterpreterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LoxInterpreterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A85D46D4204C657A00DA086D /* LoxInterpreterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoxInterpreterTests.swift; sourceTree = "<group>"; };
 		A85D46D6204C657A00DA086D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A85D46E7204C97E200DA086D /* ScannerCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerCursor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +127,7 @@
 				A85D46B0204C5A4C00DA086D /* ScannerInterface.swift */,
 				A85D46C9204C657A00DA086D /* LoxInterpreter.h */,
 				A85D46CA204C657A00DA086D /* Info.plist */,
+				A85D46E7204C97E200DA086D /* ScannerCursor.swift */,
 			);
 			path = LoxInterpreter;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 				A85D46DF204C658800DA086D /* LoxScanner.swift in Sources */,
 				A85D46E2204C658800DA086D /* Token.swift in Sources */,
 				A85D46DE204C658800DA086D /* TokenType.swift in Sources */,
+				A85D46E8204C97E200DA086D /* ScannerCursor.swift in Sources */,
 				A85D46E1204C658800DA086D /* LoxError.swift in Sources */,
 				A85D46E0204C658800DA086D /* ScannerInterface.swift in Sources */,
 			);
