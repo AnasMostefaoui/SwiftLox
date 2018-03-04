@@ -48,14 +48,26 @@ public class LoxScanner : ScannerInterface {
             return
         }
         
-        guard let tokenType = TokenType(rawValue: String(character)) else {
-            // invalid token (didn't match any token)
+        let lookAheadOffset = 1
+        let aheadCharacters = self.lookAhead(by: lookAheadOffset) ?? ""
+        let aheadString = "\(character)\(aheadCharacters)"
+        
+        // first check the aheadString match, else fall back to character
+        let matchedType = TokenType(rawValue: aheadString) ?? TokenType(rawValue: String(character))
+        
+        guard let tokenType = matchedType else {
             let error = LoxError(fileName: "",
                                  lineNumber: line,
-                                 message: "Unexpected character: \(character)",
-                location: "")
+                                 message: "Unexpected character: \(character)", location: "")
+            self.emit(error: error)
             return
         }
+
+        // update the cursor position if if matched up with look ahead
+        if tokenType.rawValue == aheadString {
+            self.currentCharacterPosition += lookAheadOffset
+        }
+        
         let token = Token(type: tokenType, literal: nil, line: 1)
         self.emit(token: token)
     }
@@ -68,22 +80,22 @@ public class LoxScanner : ScannerInterface {
         self.errors.append(error)
     }
     
-    private func consumeString(start:Int, end:Int) -> String {
-        guard self.source.isEmpty == false else {
-            return ""
-        }
-        
-        let startIndex = self.source.startIndex
-        let endIndex = self.source.endIndex
-        let consumeFromIndex = self.source.index(startIndex, offsetBy: start)
-        let consumeToIndex = self.source.index(startIndex,
-                                               offsetBy: end,
-                                               limitedBy:endIndex) ?? endIndex
-        let droppingNumber = end - start
-        return String(self.source.dropFirst(droppingNumber))
-        //let substring = String(self.source[consumeFromIndex..<consumeToIndex])
-        //return substring
-    }
+//    private func consumeString(start:Int, end:Int) -> String {
+//        guard self.source.isEmpty == false else {
+//            return ""
+//        }
+//
+//        let startIndex = self.source.startIndex
+//        let endIndex = self.source.endIndex
+//        let consumeFromIndex = self.source.index(startIndex, offsetBy: start)
+//        let consumeToIndex = self.source.index(startIndex,
+//                                               offsetBy: end,
+//                                               limitedBy:endIndex) ?? endIndex
+//        let droppingNumber = end - start
+//        return String(self.source.dropFirst(droppingNumber))
+//        //let substring = String(self.source[consumeFromIndex..<consumeToIndex])
+//        //return substring
+//    }
     
     internal func nextCharacter() -> Character? {
         guard self.currentCharacterPosition < source.count else {
@@ -94,5 +106,21 @@ public class LoxScanner : ScannerInterface {
         self.currentCharacterPosition += 1
         let character = source[nextCharacterIndex]
         return character
+    }
+    
+    func lookAhead(by numberOfCharacter:Int) -> String? {
+        var characters:[Character] = []
+        
+        for _ in 0..<numberOfCharacter {
+            guard let character = self.nextCharacter() else {
+                return nil
+            }
+            characters.append(character)
+        }
+        let aheadCharacters = String(characters)
+        
+        // reset the cursor to the original position before the lookahead
+        self.currentCharacterPosition -= numberOfCharacter
+        return aheadCharacters
     }
 }
