@@ -9,7 +9,7 @@
 import Foundation
 
 enum TokenType : String {
-    
+
     case leftParenthesis = "("
     case rightParenthesis = ")"
     case leftBrace = "{"
@@ -33,7 +33,7 @@ enum TokenType : String {
     case less = "<"
     case lessOrEqual = "<="
     
-    case identifier(let string)
+    case identifier
     case string = "String"
     case number = "Number"
 
