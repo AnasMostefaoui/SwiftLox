@@ -25,13 +25,33 @@ class ScannerUnitTests: XCTestCase {
     }
 
     func test_if_it_can_scan_one_character_tokens() {
-        let source = ">=.!=*;"
+        let source = ">.!*;"
         let tokensNumber = source.count + 1 // end of file token
         
         scanner.source = source
         let tokens = scanner.scan()
         tokens.forEach { print($0) }
         XCTAssertEqual(tokens.count, tokensNumber)
+    }
+    
+    func test_if_it_can_scan_two_character_tokens() {
+        let source = ">=.!=*;"
+        let tokensNumber = source.count + 1 // end of file token
+        var itHasGreaterOrEqual = false
+        var itHasNotEqual = false
+        
+        scanner.source = source
+        
+        let tokens = scanner.scan()
+        itHasGreaterOrEqual = tokens.contains {
+            $0.type == TokenType.graterOrEqual
+        }
+        itHasNotEqual = tokens.contains {
+            $0.type == TokenType.notEqual
+        }
+        
+        XCTAssertTrue(itHasGreaterOrEqual)
+        XCTAssertTrue(itHasNotEqual)
     }
     
     func test_if_it_can_scan_star() {
