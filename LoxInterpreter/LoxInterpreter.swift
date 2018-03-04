@@ -8,12 +8,17 @@
 
 import Foundation
 
-class LoxInterpreter {
+public class LoxInterpreter {
     
     var shouldExit:Bool = false
     var hadError:Bool = false
+    var scanner:ScannerInterface
     
-    func readFrom(filePath:String) {
+    public init(scanner:ScannerInterface) {
+        self.scanner = scanner
+    }
+    
+    public func readFrom(filePath:String) {
         guard filePath.isEmpty == false else {
             fatalError("File path is empty")
         }
@@ -26,7 +31,7 @@ class LoxInterpreter {
         execute(code: fileContent)
     }
     
-    func relp() {
+    public func relp() {
         repeat {
             print("> ")
             guard let code = readLine(strippingNewline: true) else { continue }
@@ -39,13 +44,16 @@ class LoxInterpreter {
         guard self.hadError == false else {
             exit(2)
         }
+        self.scanner.source = code
+        self.scanner.scan()
+
     }
     
-    func error(line:Int, message:String) {
+    private func error(line:Int, message:String) {
         
     }
     
-    func reportError(error:LoxError) {
+    private func reportError(error:LoxError) {
         print(error)
         self.hadError = true
     }

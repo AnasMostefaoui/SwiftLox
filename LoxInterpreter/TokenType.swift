@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum TokenType : String {
+public enum TokenType : String {
 
     case leftParenthesis = "("
     case rightParenthesis = ")"

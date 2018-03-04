@@ -8,15 +8,15 @@
 
 import Foundation
 
-struct LoxError : CustomStringConvertible {
-    var description: String  {
+public struct LoxError : CustomStringConvertible {
+    public var description: String  {
         return "\(self.fileName):\(self.lineNumber) => \(self.message) at \(self.location)"
     }
     
-    let fileName:String
-    let lineNumber:Int
-    let message:String
-    let location:String
+    public let fileName:String
+    public let lineNumber:Int
+    public let message:String
+    public let location:String
     
     
 }
