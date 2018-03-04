@@ -51,8 +51,6 @@
 		A85D46AC204C439F00DA086D /* TokenType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenType.swift; sourceTree = "<group>"; };
 		A85D46AE204C587300DA086D /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		A85D46B0204C5A4C00DA086D /* ScannerInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerInterface.swift; sourceTree = "<group>"; };
-		A85D46B8204C63D400DA086D /* LoxLanguageUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoxLanguageUnitTests.swift; sourceTree = "<group>"; };
-		A85D46BA204C63D400DA086D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A85D46C0204C642300DA086D /* ScannerUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerUnitTests.swift; sourceTree = "<group>"; };
 		A85D46C7204C657A00DA086D /* LoxInterpreter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LoxInterpreter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A85D46C9204C657A00DA086D /* LoxInterpreter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoxInterpreter.h; sourceTree = "<group>"; };
@@ -92,7 +90,6 @@
 			isa = PBXGroup;
 			children = (
 				A85D469E204C29E900DA086D /* LoxLanguage */,
-				A85D46B7204C63D400DA086D /* LoxLanguageUnitTests */,
 				A85D46C8204C657A00DA086D /* LoxInterpreter */,
 				A85D46D3204C657A00DA086D /* LoxInterpreterTests */,
 				A85D469D204C29E900DA086D /* Products */,
@@ -115,31 +112,6 @@
 				A85D469F204C29E900DA086D /* main.swift */,
 			);
 			path = LoxLanguage;
-			sourceTree = "<group>";
-		};
-		A85D46B7204C63D400DA086D /* LoxLanguageUnitTests */ = {
-			isa = PBXGroup;
-			children = (
-				A85D46BE204C640300DA086D /* UnitTests */,
-				A85D46B8204C63D400DA086D /* LoxLanguageUnitTests.swift */,
-				A85D46BA204C63D400DA086D /* Info.plist */,
-			);
-			path = LoxLanguageUnitTests;
-			sourceTree = "<group>";
-		};
-		A85D46BE204C640300DA086D /* UnitTests */ = {
-			isa = PBXGroup;
-			children = (
-				A85D46BF204C640900DA086D /* ScannerTests */,
-			);
-			path = UnitTests;
-			sourceTree = "<group>";
-		};
-		A85D46BF204C640900DA086D /* ScannerTests */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ScannerTests;
 			sourceTree = "<group>";
 		};
 		A85D46C8204C657A00DA086D /* LoxInterpreter */ = {

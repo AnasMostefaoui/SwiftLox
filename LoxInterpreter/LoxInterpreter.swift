@@ -45,7 +45,7 @@ public class LoxInterpreter {
             exit(2)
         }
         self.scanner.source = code
-        self.scanner.scan()
+        _ = self.scanner.scan()
 
     }
     

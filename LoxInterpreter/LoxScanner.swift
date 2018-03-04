@@ -16,6 +16,7 @@ public class LoxScanner : ScannerInterface {
     
     public var source: String = ""
     public private(set) var tokens: [Token] = []
+    public private(set) var errors: [LoxError] = []
     
     private var start:Int = 0
     private var currentCharacterPosition:Int = 0
@@ -49,16 +50,23 @@ public class LoxScanner : ScannerInterface {
         
         guard let tokenType = TokenType(rawValue: String(character)) else {
             // invalid token (didn't match any token)
+            let error = LoxError(fileName: "",
+                                 lineNumber: line,
+                                 message: "Unexpected character: \(character)",
+                location: "")
             return
         }
         let token = Token(type: tokenType, literal: nil, line: 1)
         self.emit(token: token)
     }
     
-    private func emit(token: Token) {
+    func emit(token: Token) {
         self.tokens.append(token)
     }
     
+    func emit(error:LoxError) {
+        self.errors.append(error)
+    }
     
     private func consumeString(start:Int, end:Int) -> String {
         guard self.source.isEmpty == false else {

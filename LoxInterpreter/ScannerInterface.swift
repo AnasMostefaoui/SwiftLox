@@ -11,6 +11,7 @@ import Foundation
 public protocol ScannerInterface {
     var source:String {get set}
     var tokens:[Token] {get}
+    var errors:[LoxError] {get}
     
     func scan() -> [Token]
 }
