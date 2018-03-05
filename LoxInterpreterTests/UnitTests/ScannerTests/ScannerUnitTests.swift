@@ -18,11 +18,6 @@ class ScannerUnitTests: XCTestCase {
         super.setUp()
         scanner = LoxScanner()
     }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
 
     func test_if_it_can_scan_one_character_tokens() {
         let source = ">.!*;"
@@ -34,7 +29,35 @@ class ScannerUnitTests: XCTestCase {
         XCTAssertEqual(tokens.count, tokensNumber)
     }
     
-    func test_if_it_can_scan_two_character_tokens() {
+    func test_if_it_can_scan_one_character_lexem() {
+        let source = ">.!"
+        var lexemCount = 0
+        var itHasGreaterLexem = false
+        var itHasDotLexem = false
+        var itHasBongLexem = false
+        
+        scanner.source = source
+        let tokens = scanner.scan()
+        tokens.forEach {
+            if $0.lexem == ">" {
+                itHasGreaterLexem = true
+                lexemCount += 1
+            } else if $0.lexem == "." {
+                itHasDotLexem = true
+                lexemCount += 1
+            } else if $0.lexem == "!" {
+                itHasBongLexem = true
+                lexemCount += 1
+            }
+        }
+        
+        XCTAssertTrue(itHasGreaterLexem)
+        XCTAssertTrue(itHasDotLexem)
+        XCTAssertTrue(itHasBongLexem)
+        XCTAssertEqual(lexemCount, source.count)
+    }
+    
+    func test_if_it_can_scan_two_characters_tokens() {
         let source = ">=.!=*;"
         var itHasGreaterOrEqual = false
         var itHasNotEqual = false
@@ -49,8 +72,32 @@ class ScannerUnitTests: XCTestCase {
             $0.type == TokenType.notEqual
         }
         
+        tokens.forEach { print($0) }
         XCTAssertTrue(itHasGreaterOrEqual)
         XCTAssertTrue(itHasNotEqual)
+    }
+    
+    func test_if_it_can_scan_tow_characters_lexem() {
+        let source = ">=.!=*;"
+        var towCharactersLexemCount = 0
+        var itHasGreaterOrEqualLexem = false
+        var itHasNotEqualLexem = false
+        
+        scanner.source = source
+        let tokens = scanner.scan()
+        tokens.forEach {
+            if $0.lexem == ">=" {
+                itHasGreaterOrEqualLexem = true
+                towCharactersLexemCount += 1
+            } else if $0.lexem == "!=" {
+                itHasNotEqualLexem = true
+                towCharactersLexemCount += 1
+            }
+        }
+        
+        XCTAssertTrue(itHasGreaterOrEqualLexem)
+        XCTAssertTrue(itHasNotEqualLexem)
+        XCTAssertEqual(towCharactersLexemCount, 2)
     }
     
     func test_if_it_can_scan_star() {

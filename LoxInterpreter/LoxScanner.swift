@@ -36,7 +36,7 @@ public class LoxScanner : ScannerInterface {
             self.scanToken()
         } while(self.cursor.endOfFile == false)
         
-        let eofToken = Token(type: .eof, literal: nil, line: 1)
+        let eofToken = Token(type: .eof, lexem: TokenType.eof.rawValue, literal: nil, line: 1)
         tokens.append(eofToken)
         return tokens
     }
@@ -61,13 +61,14 @@ public class LoxScanner : ScannerInterface {
             self.emit(error: error)
             return
         }
-
+        
         // update the cursor position if if matched up with look ahead
         if tokenType.rawValue == aheadString {
             self.cursor.seek(by: lookAheadOffset)
         }
         
-        let token = Token(type: tokenType, literal: nil, line: 1)
+        let lexem = self.cursor.getCurrentLexem()
+        let token = Token(type: tokenType, lexem: "\(lexem)", literal: nil, line: 1)
         self.emit(token: token)
     }
     

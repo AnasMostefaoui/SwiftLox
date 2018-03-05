@@ -69,4 +69,11 @@ public class ScannerCursor {
         return aheadCharacters
     }
     
+    public func getCurrentLexem() -> String {
+        let endIndex = endOfFile ? source.endIndex : currentPosition
+        let lexem = source[startPosition..<endIndex]
+        return String(lexem)
+    }
+    
+    
 }
