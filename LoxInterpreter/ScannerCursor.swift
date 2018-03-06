@@ -38,6 +38,10 @@ public class ScannerCursor {
         }
         
         let character = source[currentPosition]
+        
+        if character == "\n" {
+            self.line += 1
+        }
         // move the cursor
         self.seek(by: 1)
         return character
@@ -74,6 +78,4 @@ public class ScannerCursor {
         let lexem = source[startPosition..<endIndex]
         return String(lexem)
     }
-    
-    
 }

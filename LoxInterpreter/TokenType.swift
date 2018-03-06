@@ -29,7 +29,7 @@ public enum TokenType : String {
     case notEqual = "!="
     case equal = "=="
     case greater = ">"
-    case graterOrEqual = ">="
+    case greaterOrEqual = ">="
     case less = "<"
     case lessOrEqual = "<="
     

@@ -66,7 +66,7 @@ class ScannerUnitTests: XCTestCase {
         
         let tokens = scanner.scan()
         itHasGreaterOrEqual = tokens.contains {
-            $0.type == TokenType.graterOrEqual
+            $0.type == TokenType.greaterOrEqual
         }
         itHasNotEqual = tokens.contains {
             $0.type == TokenType.notEqual

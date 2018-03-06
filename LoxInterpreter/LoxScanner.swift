@@ -43,30 +43,72 @@ public class LoxScanner : ScannerInterface {
     
     private func scanToken() {
         // get the caracter
-        guard let character = self.nextCharacter() else {
+        guard let character = self.cursor.nextCharacter() else {
             return
         }
         
         let lookAheadOffset = 1
-        let aheadCharacters = self.lookAhead(by: lookAheadOffset) ?? ""
-        let aheadString = "\(character)\(aheadCharacters)"
+        let aheadCharacters = self.cursor.lookAhead(by: lookAheadOffset) ?? ""
+        let currentCharacter = String(character)
         
-        // first check the aheadString match, else fall back to character
-        let matchedType = TokenType(rawValue: aheadString) ?? TokenType(rawValue: String(character))
-        
-        guard let tokenType = matchedType else {
+        switch String(currentCharacter) {
+            
+        // comments
+        case TokenType.slash.rawValue where match(character: "/"):
+            ignoreComment()
+        // not equal
+        case TokenType.bang.rawValue where match(character: "="):
+            self.addToken(tokenType: TokenType.notEqual)
+        case TokenType.assigne.rawValue where match(character: "="):
+            self.addToken(tokenType: TokenType.equal)
+            
+        case TokenType.greater.rawValue where match(character: "="):
+            self.addToken(tokenType: TokenType.greaterOrEqual)
+        case TokenType.less.rawValue where match(character: "="):
+            self.addToken(tokenType: TokenType.lessOrEqual)
+            
+        case TokenType.bang.rawValue where match(character: "="):
+            self.addToken(tokenType: TokenType.notEqual)
+        // single characters
+        case _ where currentCharacter.count == 1 :
+            guard let tokenType = TokenType(rawValue: currentCharacter) else {
+                fallthrough
+            }
+            self.addToken(tokenType: tokenType)
+            
+        default:
             let error = LoxError(fileName: "",
                                  lineNumber: self.cursor.line,
                                  message: "Unexpected character: \(character)", location: "")
             self.emit(error: error)
-            return
+        }
+    }
+    
+    func match(character:String) -> Bool {
+        
+        guard cursor.endOfFile == false else {
+            return false
+        }
+
+        guard let nextCharacter = self.cursor.lookAhead(by: character.count) else {
+            return false
         }
         
-        // update the cursor position if if matched up with look ahead
-        if tokenType.rawValue == aheadString {
-            self.cursor.seek(by: lookAheadOffset)
+        if nextCharacter == character {
+            self.cursor.seek(by: character.count)
+            return true
+        } else {
+            return false
         }
-        
+    }
+    
+
+    func ignoreComment() {
+        while let aheadCharacter = cursor.nextCharacter(), aheadCharacter != "\n" {
+        }
+    }
+    
+    func addToken(tokenType:TokenType) {
         let lexem = self.cursor.getCurrentLexem()
         let token = Token(type: tokenType, lexem: "\(lexem)", literal: nil, line: 1)
         self.emit(token: token)
@@ -78,30 +120,5 @@ public class LoxScanner : ScannerInterface {
     
     func emit(error:LoxError) {
         self.errors.append(error)
-    }
-    
-//    private func consumeString(start:Int, end:Int) -> String {
-//        guard self.source.isEmpty == false else {
-//            return ""
-//        }
-//
-//        let startIndex = self.source.startIndex
-//        let endIndex = self.source.endIndex
-//        let consumeFromIndex = self.source.index(startIndex, offsetBy: start)
-//        let consumeToIndex = self.source.index(startIndex,
-//                                               offsetBy: end,
-//                                               limitedBy:endIndex) ?? endIndex
-//        let droppingNumber = end - start
-//        return String(self.source.dropFirst(droppingNumber))
-//        //let substring = String(self.source[consumeFromIndex..<consumeToIndex])
-//        //return substring
-//    }
-    
-    internal func nextCharacter() -> Character? {
-        return cursor.nextCharacter()
-    }
-    
-    internal func lookAhead(by numberOfCharacter:Int) -> String? {
-        return self.cursor.lookAhead(by:numberOfCharacter)
     }
 }
