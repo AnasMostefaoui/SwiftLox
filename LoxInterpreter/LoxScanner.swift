@@ -36,7 +36,7 @@ public class LoxScanner : ScannerInterface {
             self.scanToken()
         } while(self.cursor.endOfFile == false)
         
-        let eofToken = Token(type: .eof, lexem: TokenType.eof.rawValue, literal: nil, line: 1)
+        let eofToken = Token(type: .eof, lexem: TokenType.eof.rawValue, literal: nil, line: self.cursor.line)
         tokens.append(eofToken)
         return tokens
     }
@@ -110,7 +110,7 @@ public class LoxScanner : ScannerInterface {
     
     func addToken(tokenType:TokenType) {
         let lexem = self.cursor.getCurrentLexem()
-        let token = Token(type: tokenType, lexem: "\(lexem)", literal: nil, line: 1)
+        let token = Token(type: tokenType, lexem: "\(lexem)", literal: nil, line: self.cursor.line)
         self.emit(token: token)
     }
     

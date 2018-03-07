@@ -138,4 +138,84 @@ class ScannerUnitTests: XCTestCase {
         itHasError = errors.isEmpty == false
         XCTAssertTrue(itHasError)
     }
+    
+    func test_if_it_can_detect_comments() {
+        var itHasNotEqual = false
+        var itHasGreaterThan = false
+        
+        scanner.source = "!=//yo whats app ? \n>="
+        let tokens = scanner.scan()
+        let errors = scanner.errors
+        
+        tokens.forEach {
+            if $0.type == TokenType.notEqual {
+                itHasNotEqual = true
+            } else if $0.type == TokenType.greaterOrEqual  {
+                itHasGreaterThan = true
+            }
+        }
+        
+        XCTAssertTrue(itHasGreaterThan)
+        XCTAssertTrue(itHasNotEqual)
+        XCTAssertEqual(tokens.count, 3)
+        XCTAssertTrue(errors.isEmpty)
+    }
+    
+    func test_if_it_can_detect_nexted_inline_comments() {
+        var itHasNotEqual = false
+        var itHasGreaterThan = false
+        
+        scanner.source = "!=//yo whats app ?// sah//\n>="
+        let tokens = scanner.scan()
+        let errors = scanner.errors
+        
+        tokens.forEach {
+            if $0.type == TokenType.notEqual {
+                itHasNotEqual = true
+            } else if $0.type == TokenType.greaterOrEqual  {
+                itHasGreaterThan = true
+            }
+        }
+        
+        XCTAssertTrue(itHasGreaterThan)
+        XCTAssertTrue(itHasNotEqual)
+        XCTAssertEqual(tokens.count, 3)
+        XCTAssertTrue(errors.isEmpty)
+    }
+    
+    func test_if_it_can_detect_lines_numbers() {
+        let source =
+        """
+!=//yo whats app ? //first line
+//chkoupi//chkoupi // second line
+>=// third line
+//forthline
+"""
+        let expectedLines = 4
+        var itHasNotEqual = false
+        var itHasGreaterThan = false
+        
+        
+        scanner.source = source
+        let tokens = scanner.scan()
+        let errors = scanner.errors
+        
+        tokens.forEach {
+            if $0.type == TokenType.notEqual {
+                itHasNotEqual = true
+            } else if $0.type == TokenType.greaterOrEqual  {
+                itHasGreaterThan = true
+            }
+        }
+        
+        let lastToken = tokens[tokens.index(before: tokens.endIndex)]
+        
+        XCTAssertEqual(lastToken.line, expectedLines)
+        
+        XCTAssertTrue(itHasGreaterThan)
+        XCTAssertTrue(itHasNotEqual)
+        
+        XCTAssertEqual(tokens.count, 3)
+        XCTAssertTrue(errors.isEmpty)
+    }
 }
