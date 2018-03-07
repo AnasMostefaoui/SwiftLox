@@ -19,6 +19,19 @@ class ScannerUnitTests: XCTestCase {
         scanner = LoxScanner()
     }
 
+    func test_if_it_can_scan_source_from_file() {
+        let bundle = Bundle(for: type(of: self))
+        guard let file = bundle.path(forResource: "read_from_file_test_file", ofType: "lox") else {
+            fatalError("read_from_file_test_file.lox not found")
+        }
+        
+        scanner.readFrom(filePath: file)
+        let tokensNumber = 17 // (16 tokens + eof token)
+        let tokens = scanner.scan()
+        tokens.forEach { print($0) }
+        XCTAssertEqual(tokens.count, tokensNumber)
+    }
+    
     func test_if_it_can_scan_one_character_tokens() {
         let source = ">.!*;"
         let tokensNumber = source.count + 1 // end of file token

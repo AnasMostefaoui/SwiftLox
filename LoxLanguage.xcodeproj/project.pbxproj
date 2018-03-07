@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13CAFB7B2050216E004FE796 /* read_from_file_test_file.lox in Resources */ = {isa = PBXBuildFile; fileRef = 13CAFB7A2050216E004FE796 /* read_from_file_test_file.lox */; };
 		A85D46A0204C29E900DA086D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85D469F204C29E900DA086D /* main.swift */; };
 		A85D46D0204C657A00DA086D /* LoxInterpreter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A85D46C7204C657A00DA086D /* LoxInterpreter.framework */; };
 		A85D46D5204C657A00DA086D /* LoxInterpreterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85D46D4204C657A00DA086D /* LoxInterpreterTests.swift */; };
@@ -44,6 +45,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		13CAFB7A2050216E004FE796 /* read_from_file_test_file.lox */ = {isa = PBXFileReference; lastKnownFileType = text; path = read_from_file_test_file.lox; sourceTree = "<group>"; };
 		A85D469C204C29E900DA086D /* LoxLanguage */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LoxLanguage; sourceTree = BUILT_PRODUCTS_DIR; };
 		A85D469F204C29E900DA086D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		A85D46A6204C2B9000DA086D /* LoxInterpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoxInterpreter.swift; sourceTree = "<group>"; };
@@ -88,6 +90,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		13CAFB792050213A004FE796 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				13CAFB7A2050216E004FE796 /* read_from_file_test_file.lox */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		A85D4693204C29E900DA086D = {
 			isa = PBXGroup;
 			children = (
@@ -135,6 +145,7 @@
 		A85D46D3204C657A00DA086D /* LoxInterpreterTests */ = {
 			isa = PBXGroup;
 			children = (
+				13CAFB792050213A004FE796 /* Resources */,
 				A85D46E4204C66D100DA086D /* UnitTests */,
 				A85D46D4204C657A00DA086D /* LoxInterpreterTests.swift */,
 				A85D46D6204C657A00DA086D /* Info.plist */,
@@ -280,6 +291,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13CAFB7B2050216E004FE796 /* read_from_file_test_file.lox in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

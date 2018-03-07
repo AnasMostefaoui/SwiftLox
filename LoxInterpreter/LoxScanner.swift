@@ -22,6 +22,19 @@ public class LoxScanner : ScannerInterface {
     private var cursor:ScannerCursor!
     
 
+    public func readFrom(filePath:String) {
+        guard filePath.isEmpty == false else {
+            fatalError("File path is empty")
+        }
+        
+        let fileURL = URL(fileURLWithPath: filePath)
+        guard let fileContent = try? String(contentsOf: fileURL) else {
+            fatalError("File not found")
+        }
+        
+        source = fileContent
+    }
+    
     public func scan() -> [Token] {
 
         guard source.isEmpty == false else {
