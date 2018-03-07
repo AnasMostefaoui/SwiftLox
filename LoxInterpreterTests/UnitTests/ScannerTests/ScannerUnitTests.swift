@@ -139,6 +139,7 @@ class ScannerUnitTests: XCTestCase {
         XCTAssertTrue(itHasError)
     }
     
+    // comments and slash tests
     func test_if_it_can_detect_comments() {
         var itHasNotEqual = false
         var itHasGreaterThan = false
@@ -161,7 +162,7 @@ class ScannerUnitTests: XCTestCase {
         XCTAssertTrue(errors.isEmpty)
     }
     
-    func test_if_it_can_detect_nexted_inline_comments() {
+    func test_if_it_can_detect_nested_inline_comments() {
         var itHasNotEqual = false
         var itHasGreaterThan = false
         
@@ -183,6 +184,138 @@ class ScannerUnitTests: XCTestCase {
         XCTAssertTrue(errors.isEmpty)
     }
     
+    func test_if_it_can_detect_slash_and_comments() {
+      
+        let source =
+        """
+!=//yo whats app ? //first line
+/
+//third line
+//forthline
+"""
+        var itHasNotEqual = false
+        var itHasSlash = false
+        
+        scanner.source = source
+        let tokens = scanner.scan()
+        let errors = scanner.errors
+        
+        tokens.forEach {
+            if $0.type == TokenType.notEqual {
+                itHasNotEqual = true
+            } else if $0.type == TokenType.slash  {
+                itHasSlash = true
+            }
+        }
+        
+        XCTAssertTrue(itHasSlash)
+        XCTAssertTrue(itHasNotEqual)
+        XCTAssertEqual(tokens.count, 3)
+        XCTAssertTrue(errors.isEmpty)
+    }
+    
+    // white space, \t \r \n
+    func test_if_it_can_ignore_white_space() {
+        let source =
+        """
+!=   >=
+//
+"""
+        let expectedLines = 2
+        var itHasNotEqual = false
+        var itHasGreaterThan = false
+        
+        
+        scanner.source = source
+        let tokens = scanner.scan()
+        let errors = scanner.errors
+        
+        tokens.forEach {
+            if $0.type == TokenType.notEqual {
+                itHasNotEqual = true
+            } else if $0.type == TokenType.greaterOrEqual  {
+                itHasGreaterThan = true
+            }
+        }
+        
+        let lastToken = tokens[tokens.index(before: tokens.endIndex)]
+        
+        XCTAssertEqual(lastToken.line, expectedLines)
+        
+        XCTAssertTrue(itHasGreaterThan)
+        XCTAssertTrue(itHasNotEqual)
+        
+        XCTAssertEqual(tokens.count, 3)
+        XCTAssertTrue(errors.isEmpty)
+    }
+    
+    func test_if_it_can_ignore_carriage_return() {
+        let source =
+        """
+!=  \r \r \t \t  >=
+"""
+        let expectedLines = 1
+        var itHasNotEqual = false
+        var itHasGreaterThan = false
+        
+        
+        scanner.source = source
+        let tokens = scanner.scan()
+        let errors = scanner.errors
+        
+        tokens.forEach {
+            if $0.type == TokenType.notEqual {
+                itHasNotEqual = true
+            } else if $0.type == TokenType.greaterOrEqual  {
+                itHasGreaterThan = true
+            }
+        }
+        
+        let lastToken = tokens[tokens.index(before: tokens.endIndex)]
+        
+        XCTAssertEqual(lastToken.line, expectedLines)
+        
+        XCTAssertTrue(itHasGreaterThan)
+        XCTAssertTrue(itHasNotEqual)
+        
+        XCTAssertEqual(tokens.count, 3)
+        XCTAssertTrue(errors.isEmpty)
+    }
+    
+    func test_if_it_can_ignore_tab_space() {
+        let source =
+        """
+!=  \t  >=  // first line
+"""
+        let expectedLines = 1
+        var itHasNotEqual = false
+        var itHasGreaterThan = false
+        
+        
+        scanner.source = source
+        let tokens = scanner.scan()
+        let errors = scanner.errors
+        
+        tokens.forEach {
+            if $0.type == TokenType.notEqual {
+                itHasNotEqual = true
+            } else if $0.type == TokenType.greaterOrEqual  {
+                itHasGreaterThan = true
+            }
+        }
+        
+        let lastToken = tokens[tokens.index(before: tokens.endIndex)]
+        
+        XCTAssertEqual(lastToken.line, expectedLines)
+        
+        XCTAssertTrue(itHasGreaterThan)
+        XCTAssertTrue(itHasNotEqual)
+        
+        XCTAssertEqual(tokens.count, 3)
+        XCTAssertTrue(errors.isEmpty)
+    }
+    
+    // line numbers tests
     func test_if_it_can_detect_lines_numbers() {
         let source =
         """

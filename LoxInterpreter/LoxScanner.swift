@@ -48,11 +48,11 @@ public class LoxScanner : ScannerInterface {
         }
         
         let lookAheadOffset = 1
-        let aheadCharacters = self.cursor.lookAhead(by: lookAheadOffset) ?? ""
+        _ = self.cursor.lookAhead(by: lookAheadOffset) ?? ""
         let currentCharacter = String(character)
         
         switch String(currentCharacter) {
-            
+        
         // comments
         case TokenType.slash.rawValue where match(character: "/"):
             ignoreComment()
@@ -71,6 +71,11 @@ public class LoxScanner : ScannerInterface {
             self.addToken(tokenType: TokenType.notEqual)
         // single characters
         case _ where currentCharacter.count == 1 :
+            // ignore new line, space, tab characters
+            guard shouldIgnore(character: currentCharacter) == false else {
+                return
+            }
+            
             guard let tokenType = TokenType(rawValue: currentCharacter) else {
                 fallthrough
             }
@@ -105,6 +110,15 @@ public class LoxScanner : ScannerInterface {
 
     func ignoreComment() {
         while let aheadCharacter = cursor.nextCharacter(), aheadCharacter != "\n" {
+        }
+    }
+    
+    func shouldIgnore(character:String) -> Bool {
+        switch character {
+        case " ", "\r", "\t", "\n":
+            return true
+        default:
+            return false
         }
     }
     
