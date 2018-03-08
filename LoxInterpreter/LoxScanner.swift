@@ -69,8 +69,10 @@ public class LoxScanner : ScannerInterface {
         _ = self.cursor.lookAhead(by: lookAheadOffset) ?? ""
         let currentCharacter = String(character)
         
-        switch String(currentCharacter) {
+        switch currentCharacter {
         
+        case _ where character.isDigit():
+            scanDigit(from: character)
         // strings
         case "\"":
             scanString()
@@ -145,13 +147,43 @@ public class LoxScanner : ScannerInterface {
         }
     }
     
+    func scanDigit(from character:Character) {
+        var numberString:String = "\(character)"
+        var isFloat:Bool = false
+        var aheadCharacter:String? = nil
+        
+        repeat {
+            guard let validCharacter = cursor.nextCharacter() else {
+                break
+            }
+            aheadCharacter = String(validCharacter)
+            guard validCharacter.isDigit() || (isFloat == false && validCharacter == ".") else {
+                break
+            }
+            
+            numberString.append(validCharacter)
+        } while cursor.endOfFile == false
+
+        guard let number = Float(numberString) else {
+            let error = LoxError(fileName: self.fileName,
+                                 filePath: self.filePath,
+                                 lineNumber: cursor.line,
+                                 message: "Invalid number literal: \(numberString)", location: "")
+            emit(error: error)
+            return
+        }
+        
+        self.addToken(tokenType: TokenType.number, literal: number, line: cursor.line)
+        
+    }
+    
     func scanString() {
         var stringLiteral:String? = ""
         var aheadCharacter:String? = nil
         
         repeat {
-            let character = cursor.nextCharacter()
-            guard let validCharacter = character else {
+            
+            guard let validCharacter = cursor.nextCharacter() else {
                 break
             }
             

@@ -515,4 +515,25 @@ yep
         XCTAssertTrue(tokens.first!.lexem != "\"hi\"1")
         
     }
+    
+    // scan digits
+    func test_if_it_can_scan_digit() {
+        let source = "1963"
+        let expectedLines = 1
+        
+        scanner.source = source
+        let tokens = scanner.scan()
+        let errors = scanner.errors
+        let lastToken = tokens[tokens.index(before: tokens.endIndex)]
+        
+        XCTAssertEqual(lastToken.line, expectedLines)
+        XCTAssertEqual(tokens.count, 2)
+        XCTAssertTrue(errors.isEmpty)
+        XCTAssertNotNil(tokens.first)
+        XCTAssertTrue(tokens.first!.type == TokenType.number)
+        XCTAssertTrue(tokens.first!.lexem == "1963")
+        let value = tokens.first!.literal! as? Float
+        XCTAssertTrue(value == 1963)
+        
+    }
 }

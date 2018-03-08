@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		13CAFB7B2050216E004FE796 /* read_from_file_test_file.lox in Resources */ = {isa = PBXBuildFile; fileRef = 13CAFB7A2050216E004FE796 /* read_from_file_test_file.lox */; };
+		13CAFB7D20515FD5004FE796 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CAFB7C20515FD5004FE796 /* StringExtension.swift */; };
 		A85D46A0204C29E900DA086D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85D469F204C29E900DA086D /* main.swift */; };
 		A85D46D0204C657A00DA086D /* LoxInterpreter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A85D46C7204C657A00DA086D /* LoxInterpreter.framework */; };
 		A85D46D5204C657A00DA086D /* LoxInterpreterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85D46D4204C657A00DA086D /* LoxInterpreterTests.swift */; };
@@ -46,6 +47,7 @@
 
 /* Begin PBXFileReference section */
 		13CAFB7A2050216E004FE796 /* read_from_file_test_file.lox */ = {isa = PBXFileReference; lastKnownFileType = text; path = read_from_file_test_file.lox; sourceTree = "<group>"; };
+		13CAFB7C20515FD5004FE796 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		A85D469C204C29E900DA086D /* LoxLanguage */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LoxLanguage; sourceTree = BUILT_PRODUCTS_DIR; };
 		A85D469F204C29E900DA086D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		A85D46A6204C2B9000DA086D /* LoxInterpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoxInterpreter.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				A85D46C9204C657A00DA086D /* LoxInterpreter.h */,
 				A85D46CA204C657A00DA086D /* Info.plist */,
 				A85D46E7204C97E200DA086D /* ScannerCursor.swift */,
+				13CAFB7C20515FD5004FE796 /* StringExtension.swift */,
 			);
 			path = LoxInterpreter;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 				A85D46DF204C658800DA086D /* LoxScanner.swift in Sources */,
 				A85D46E2204C658800DA086D /* Token.swift in Sources */,
 				A85D46DE204C658800DA086D /* TokenType.swift in Sources */,
+				13CAFB7D20515FD5004FE796 /* StringExtension.swift in Sources */,
 				A85D46E8204C97E200DA086D /* ScannerCursor.swift in Sources */,
 				A85D46E1204C658800DA086D /* LoxError.swift in Sources */,
 				A85D46E0204C658800DA086D /* ScannerInterface.swift in Sources */,
