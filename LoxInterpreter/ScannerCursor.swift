@@ -47,6 +47,13 @@ public class ScannerCursor {
         return character
     }
     
+    func nextCharacter(_ condition:(_ character:String) -> Bool) -> Character? {
+        guard let next = self.lookAhead(by: 1), condition(next) else {
+            return nil
+        }
+        return self.nextCharacter()
+    }
+    
     public func seek(by offset:Int) {
         let boundIndex = offset < 0 ? source.startIndex : source.endIndex
         
@@ -62,6 +69,7 @@ public class ScannerCursor {
         
         for _ in 0..<numberOfCharacter {
             guard let character = self.nextCharacter(updateLine: false) else {
+                self.seek(by: -1 * characters.count)
                 return nil
             }
             characters.append(character)

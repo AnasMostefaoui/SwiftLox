@@ -498,7 +498,7 @@ yep
     func test_if_it_can_detect_string_lexem_without_extra_character_at_end() {
         let source =
         """
-"hi"1
+"hi"k
 """
         let expectedLines = 1
         
@@ -512,13 +512,13 @@ yep
         XCTAssertTrue(errors.isEmpty == false)
         XCTAssertNotNil(tokens.first)
         XCTAssertTrue(tokens.first!.lexem == "\"hi\"")
-        XCTAssertTrue(tokens.first!.lexem != "\"hi\"1")
+        XCTAssertTrue(tokens.first!.lexem != "\"hi\"k")
         
     }
     
     // scan digits
-    func test_if_it_can_scan_digit() {
-        let source = "1963"
+    func test_if_it_can_scan_integer_digit() {
+        let source = "1963."
         let expectedLines = 1
         
         scanner.source = source
@@ -527,7 +527,7 @@ yep
         let lastToken = tokens[tokens.index(before: tokens.endIndex)]
         
         XCTAssertEqual(lastToken.line, expectedLines)
-        XCTAssertEqual(tokens.count, 2)
+        XCTAssertEqual(tokens.count, 3)
         XCTAssertTrue(errors.isEmpty)
         XCTAssertNotNil(tokens.first)
         XCTAssertTrue(tokens.first!.type == TokenType.number)
@@ -535,5 +535,24 @@ yep
         let value = tokens.first!.literal! as? Float
         XCTAssertTrue(value == 1963)
         
+    }
+    
+    func test_if_it_can_scan_float_digit() {
+        let source = "1963.500.13.3."
+        let expectedLines = 1
+        
+        scanner.source = source
+        let tokens = scanner.scan()
+        let errors = scanner.errors
+        let lastToken = tokens[tokens.index(before: tokens.endIndex)]
+        
+        XCTAssertEqual(lastToken.line, expectedLines)
+        XCTAssertEqual(tokens.count, 5)
+        XCTAssertTrue(errors.isEmpty)
+        XCTAssertNotNil(tokens.first)
+        XCTAssertTrue(tokens.first!.type == TokenType.number)
+        XCTAssertTrue(tokens.first!.lexem == "1963.500")
+        let value = tokens.first!.literal! as? Float
+        XCTAssertTrue(value == 1963.500)
     }
 }

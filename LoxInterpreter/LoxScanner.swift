@@ -147,24 +147,53 @@ public class LoxScanner : ScannerInterface {
         }
     }
     
-    func scanDigit(from character:Character) {
+    func scanInteger(from character:String) -> String? {
         var numberString:String = "\(character)"
-        var isFloat:Bool = false
-        var aheadCharacter:String? = nil
-        
+
+        // parse the integer part
         repeat {
-            guard let validCharacter = cursor.nextCharacter() else {
-                break
+            guard let nextCharacter = cursor.lookAhead(by: 1),
+                nextCharacter.isDigit() else {
+                    break
             }
-            aheadCharacter = String(validCharacter)
-            guard validCharacter.isDigit() || (isFloat == false && validCharacter == ".") else {
+            
+            guard let validCharacter = cursor.nextCharacter()  else {
                 break
             }
             
+            
             numberString.append(validCharacter)
         } while cursor.endOfFile == false
+        
+        return numberString
+    }
+    
+    func scanDigit(from character:Character) {
+        var numberString:String = "\(character)"
+        var floatPart:String = ""
+        
+        // parse the integer part
+        guard let scannedInteger = self.scanInteger(from: numberString) else {
+            // emit error
+            return
+        }
 
-        guard let number = Float(numberString) else {
+        numberString = scannedInteger
+        
+        if cursor.lookAhead(by: 1) == ".", let nextCharacter = cursor.lookAhead(by: 2), nextCharacter.isDigit() {
+            // float part
+            guard let next = cursor.nextCharacter(), let floatScanned = self.scanInteger(from: String(next)) else {
+                // emit error
+                return
+            }
+            
+            floatPart = floatScanned
+        }
+        
+        
+        
+        let finalNumberString = numberString + floatPart
+        guard let number = Float(finalNumberString) else {
             let error = LoxError(fileName: self.fileName,
                                  filePath: self.filePath,
                                  lineNumber: cursor.line,
