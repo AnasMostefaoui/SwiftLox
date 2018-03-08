@@ -364,4 +364,155 @@ class ScannerUnitTests: XCTestCase {
         XCTAssertEqual(tokens.count, 3)
         XCTAssertTrue(errors.isEmpty)
     }
+    
+    // String tests
+    func test_if_it_can_detect_simple_string() {
+        let source =
+        """
+// try to scan strings
+"Hello world"
+"""
+        let expectedLines = 2
+
+        scanner.source = source
+        let tokens = scanner.scan()
+        let errors = scanner.errors
+        
+
+        let lastToken = tokens[tokens.index(before: tokens.endIndex)]
+        
+        XCTAssertEqual(lastToken.line, expectedLines)
+        XCTAssertEqual(tokens.count, 2)
+        XCTAssertTrue(errors.isEmpty)
+    }
+    
+    func test_if_it_can_detect_multiline_string() {
+        let source =
+        """
+// try to scan strings
+"Hello world
+Multilines string is here
+You sure ?
+yep
+"
+"""
+        let expectedLines = 6
+        
+        scanner.source = source
+        let tokens = scanner.scan()
+        let errors = scanner.errors
+        
+        
+        let lastToken = tokens[tokens.index(before: tokens.endIndex)]
+        
+        XCTAssertEqual(lastToken.line, expectedLines)
+        XCTAssertEqual(tokens.count, 2)
+        XCTAssertTrue(errors.isEmpty)
+    }
+
+    func test_if_it_can_detect_unterminated_string() {
+        let source =
+        """
+// try to scan strings
+"Hello world
+"""
+        let expectedLines = 2
+        
+        scanner.source = source
+        let tokens = scanner.scan()
+        let errors = scanner.errors
+        
+        
+        let lastToken = tokens[tokens.index(before: tokens.endIndex)]
+        
+        XCTAssertEqual(lastToken.line, expectedLines)
+        XCTAssertEqual(tokens.count, 1)
+        XCTAssertTrue(errors.isEmpty == false)
+        XCTAssertNotNil(errors.first)
+        XCTAssertTrue(errors.first!.message == "Unterminated string.")
+    }
+    
+    func test_if_it_can_detect_unterminated_string_when_triple_quote() {
+        let source =
+        """
+"Hello world""
+
+"""
+        scanner.source = source
+        let expectedLines = 2
+        let tokens = scanner.scan()
+        let errors = scanner.errors
+        
+        
+        let lastToken = tokens[tokens.index(before: tokens.endIndex)]
+        
+        XCTAssertEqual(lastToken.line, expectedLines)
+        XCTAssertEqual(tokens.count, 2)
+        XCTAssertTrue(errors.isEmpty == false)
+        XCTAssertNotNil(errors.first)
+        XCTAssertTrue(errors.first!.message == "Unterminated string.")
+    }
+    
+    func test_if_it_can_detect_empty_string() {
+        let source =
+        """
+// try to scan strings
+"" "" "hi" "" "ok"
+"""
+        let expectedLines = 2
+        
+        scanner.source = source
+        let tokens = scanner.scan()
+        let errors = scanner.errors
+        
+        
+        let lastToken = tokens[tokens.index(before: tokens.endIndex)]
+        
+        XCTAssertEqual(lastToken.line, expectedLines)
+        XCTAssertEqual(tokens.count, 6)
+        XCTAssertTrue(errors.isEmpty)
+    }
+    
+    func test_if_it_can_detect_string_lexem_without_white_space() {
+        let source =
+        """
+"hi"
+"""
+        let expectedLines = 1
+        
+        scanner.source = source
+        let tokens = scanner.scan()
+        let errors = scanner.errors
+        
+        
+        let lastToken = tokens[tokens.index(before: tokens.endIndex)]
+        
+        XCTAssertEqual(lastToken.line, expectedLines)
+        XCTAssertEqual(tokens.count, 2)
+        XCTAssertTrue(errors.isEmpty)
+        XCTAssertNotNil(tokens.first)
+        XCTAssertTrue(tokens.first!.lexem == "\"hi\"")
+        
+    }
+    
+    func test_if_it_can_detect_string_lexem_without_extra_character_at_end() {
+        let source =
+        """
+"hi"1
+"""
+        let expectedLines = 1
+        
+        scanner.source = source
+        let tokens = scanner.scan()
+        let errors = scanner.errors
+        let lastToken = tokens[tokens.index(before: tokens.endIndex)]
+        
+        XCTAssertEqual(lastToken.line, expectedLines)
+        XCTAssertEqual(tokens.count, 2)
+        XCTAssertTrue(errors.isEmpty == false)
+        XCTAssertNotNil(tokens.first)
+        XCTAssertTrue(tokens.first!.lexem == "\"hi\"")
+        XCTAssertTrue(tokens.first!.lexem != "\"hi\"1")
+        
+    }
 }

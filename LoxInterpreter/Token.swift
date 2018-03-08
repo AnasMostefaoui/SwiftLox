@@ -15,6 +15,6 @@ public struct Token : CustomStringConvertible {
     
     public let type:TokenType
     public let lexem:String
-    public let literal:String?
+    public let literal:Any?
     public let line:Int
 }

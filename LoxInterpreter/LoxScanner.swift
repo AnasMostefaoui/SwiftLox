@@ -10,6 +10,9 @@ import Foundation
 
 public class LoxScanner : ScannerInterface {
     
+    var fileName:String = ""
+    var filePath:String = ""
+    
     public var source: String = "" {
         didSet{
             // create a new scanner each time a new source is set
@@ -32,6 +35,8 @@ public class LoxScanner : ScannerInterface {
             fatalError("File not found")
         }
         
+        self.fileName = fileURL.path
+        self.filePath = filePath
         source = fileContent
     }
     
@@ -60,12 +65,15 @@ public class LoxScanner : ScannerInterface {
             return
         }
         
-        let lookAheadOffset = 1
+        let lookAheadOffset:UInt = 1
         _ = self.cursor.lookAhead(by: lookAheadOffset) ?? ""
         let currentCharacter = String(character)
         
         switch String(currentCharacter) {
         
+        // strings
+        case "\"":
+            scanString()
         // comments
         case TokenType.slash.rawValue where match(character: "/"):
             ignoreComment()
@@ -84,18 +92,19 @@ public class LoxScanner : ScannerInterface {
             self.addToken(tokenType: TokenType.notEqual)
         // single characters
         case _ where currentCharacter.count == 1 :
+
             // ignore new line, space, tab characters
             guard shouldIgnore(character: currentCharacter) == false else {
                 return
             }
             
-            guard let tokenType = TokenType(rawValue: currentCharacter) else {
+            guard scanSingleCharacter(character: currentCharacter) != nil else {
                 fallthrough
             }
-            self.addToken(tokenType: tokenType)
             
         default:
-            let error = LoxError(fileName: "",
+            let error = LoxError(fileName: self.fileName,
+                                 filePath:self.filePath,
                                  lineNumber: self.cursor.line,
                                  message: "Unexpected character: \(character)", location: "")
             self.emit(error: error)
@@ -108,7 +117,8 @@ public class LoxScanner : ScannerInterface {
             return false
         }
 
-        guard let nextCharacter = self.cursor.lookAhead(by: character.count) else {
+        let aheadOffset = UInt(character.count)
+        guard let nextCharacter = self.cursor.lookAhead(by: aheadOffset) else {
             return false
         }
         
@@ -135,9 +145,53 @@ public class LoxScanner : ScannerInterface {
         }
     }
     
+    func scanString() {
+        var stringLiteral:String? = ""
+        var aheadCharacter:String? = nil
+        
+        repeat {
+            let character = cursor.nextCharacter()
+            guard let validCharacter = character else {
+                break
+            }
+            
+            aheadCharacter = String(validCharacter)
+            
+            guard validCharacter != "\"" else {
+                break
+            }
+            
+            stringLiteral?.append(validCharacter)
+        } while cursor.endOfFile == false
+        
+        guard aheadCharacter == "\"" else {
+            let error = LoxError(fileName: self.fileName,
+                                 filePath: self.filePath,
+                                 lineNumber: cursor.line,
+                                 message: "Unterminated string.", location: "")
+            emit(error: error)
+            return
+            
+        }
+
+        self.addToken(tokenType: TokenType.string, literal: stringLiteral, line: cursor.line)
+    }
+    
+    func scanSingleCharacter(character:String) -> TokenType? {
+        guard let tokenType = TokenType(rawValue: character) else {
+            return nil
+        }
+        self.addToken(tokenType: tokenType)
+        return tokenType
+    }
+    
     func addToken(tokenType:TokenType) {
-        let lexem = self.cursor.getCurrentLexem()
-        let token = Token(type: tokenType, lexem: "\(lexem)", literal: nil, line: self.cursor.line)
+        self.addToken(tokenType: tokenType, line: cursor.line)
+    }
+    
+    func addToken(tokenType:TokenType, lexem:String? = nil, literal: Any? = nil, line:Int) {
+        let lexem = lexem ?? self.cursor.getCurrentLexem()
+        let token = Token(type: tokenType, lexem: lexem, literal: literal, line: line)
         self.emit(token: token)
     }
     

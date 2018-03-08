@@ -14,6 +14,7 @@ public struct LoxError : CustomStringConvertible {
     }
     
     public let fileName:String
+    public let filePath:String
     public let lineNumber:Int
     public let message:String
     public let location:String

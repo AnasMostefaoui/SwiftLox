@@ -32,14 +32,14 @@ public class ScannerCursor {
         self.startPosition = self.currentPosition
     }
     
-    public func nextCharacter() -> Character? {
+    public func nextCharacter(updateLine:Bool = true) -> Character? {
         guard currentPosition != source.endIndex else {
             return nil
         }
         
         let character = source[currentPosition]
         
-        if character == "\n" {
+        if character == "\n" && updateLine == true {
             self.line += 1
         }
         // move the cursor
@@ -57,8 +57,30 @@ public class ScannerCursor {
         currentPosition = index
     }
     
-    public func lookAhead(by numberOfCharacter:Int) -> String? {
+    public func lookAhead(by numberOfCharacter:UInt) -> String? {
         var characters:[Character] = []
+        
+        for _ in 0..<numberOfCharacter {
+            guard let character = self.nextCharacter(updateLine: false) else {
+                return nil
+            }
+            characters.append(character)
+        }
+        let aheadCharacters = String(characters)
+        
+        // reset the cursor to the original position before the lookahead
+        self.seek(by: -1 * Int(numberOfCharacter))
+        return aheadCharacters
+    }
+    
+    public func lookBack(by numberOfCharacter:UInt) -> String? {
+        
+        let offset = -1 * Int(numberOfCharacter)
+        guard source.index(currentPosition, offsetBy: offset, limitedBy: source.startIndex) != nil else {
+            return nil
+        }
+        var characters:[Character] = []
+        self.seek(by: offset)
         
         for _ in 0..<numberOfCharacter {
             guard let character = self.nextCharacter() else {
@@ -69,7 +91,7 @@ public class ScannerCursor {
         let aheadCharacters = String(characters)
         
         // reset the cursor to the original position before the lookahead
-        self.seek(by: -numberOfCharacter)
+        self.seek(by: Int(numberOfCharacter))
         return aheadCharacters
     }
     
