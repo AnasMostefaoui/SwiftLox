@@ -600,4 +600,55 @@ yep
 
     }
     
+    func test_if_it_can_detect_for_loop() {
+        let source = "for ( var i = 0; i < 10; i += 1) { }"
+        let expectedLines = 1
+        scanner.source = source
+        
+        let tokens = scanner.scan()
+        let errors = scanner.errors
+        let lastToken = tokens[tokens.index(before: tokens.endIndex)]
+        var hasFor = false
+        var hasVar = false
+        var hasLeftParenthesis = false
+        var hasRightParenthesis = false
+        var hasIdentifierNamedI = false
+        var hasNumber0 = false
+        var hasNumber10 = false
+        
+        tokens.forEach {
+            if $0.type == TokenType.var {
+                hasVar = true
+            } else if $0.type == TokenType.for {
+                hasFor = true
+            } else if $0.type == TokenType.leftParenthesis {
+                hasLeftParenthesis = true
+                
+            } else if $0.type == TokenType.rightParenthesis {
+                hasRightParenthesis = true
+            } else if $0.type == TokenType.identifier {
+                hasIdentifierNamedI = $0.lexem == "i"
+            } else if $0.type == TokenType.number, $0.lexem == "0" {
+                hasNumber0 = true
+            } else if $0.type == TokenType.number, $0.lexem == "10" {
+                hasNumber10 = true
+            }
+            
+            
+        }
+        XCTAssertEqual(lastToken.line, expectedLines)
+        XCTAssertEqual(tokens.count, 19)
+        XCTAssertTrue(errors.isEmpty)
+        
+        XCTAssertTrue(hasFor)
+        XCTAssertTrue(hasVar)
+        XCTAssertTrue(hasLeftParenthesis)
+        XCTAssertTrue(hasRightParenthesis)
+        XCTAssertTrue(hasIdentifierNamedI)
+        XCTAssertTrue(hasNumber0)
+        XCTAssertTrue(hasNumber10)
+        
+        
+    }
+    
 }
