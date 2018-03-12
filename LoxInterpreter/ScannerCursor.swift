@@ -13,9 +13,14 @@ public class ScannerCursor {
     public var startPosition:String.Index
     public var currentPosition:String.Index
     private let source:String
-    public private(set) var line:Int = 1
+    public private(set) var line:Int = 1 {
+        didSet {
+            column = 1
+        }
+    }
+    public private(set) var column:Int = 1
     
-    init(source: inout String) {
+    public init(source: inout String) {
         self.startPosition = source.startIndex
         self.currentPosition = self.startPosition
         // keep a read only referance to the source to manipulate the cursor
@@ -47,7 +52,7 @@ public class ScannerCursor {
         return character
     }
     
-    func nextCharacter(_ condition:(_ character:String) -> Bool) -> Character? {
+    public func nextCharacter(_ condition:(_ character:String) -> Bool) -> Character? {
         guard let next = self.lookAhead(by: 1), condition(next) else {
             return nil
         }

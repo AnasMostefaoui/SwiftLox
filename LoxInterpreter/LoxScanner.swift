@@ -10,11 +10,11 @@ import Foundation
 
 public class LoxScanner : ScannerInterface {
     
-    var fileName:String = ""
-    var filePath:String = ""
+    public private(set) var fileName:String = ""
+    public private(set) var filePath:String = ""
     
     public var source: String = "" {
-        didSet{
+        didSet {
             // create a new scanner each time a new source is set
             self.cursor = ScannerCursor(source: &source)
         }
@@ -24,7 +24,6 @@ public class LoxScanner : ScannerInterface {
     public private(set) var errors: [LoxError] = []
     private var cursor:ScannerCursor!
     
-
     public func readFrom(filePath:String) {
         guard filePath.isEmpty == false else {
             fatalError("File path is empty")
@@ -65,45 +64,47 @@ public class LoxScanner : ScannerInterface {
             return
         }
         
-        let lookAheadOffset:UInt = 1
-        _ = self.cursor.lookAhead(by: lookAheadOffset) ?? ""
         let currentCharacter = String(character)
         
         switch currentCharacter {
         
+        case _ where character.isAlphaOrUnderscore():
+            scanAlphaNumeric(from: currentCharacter)
+            
         case _ where character.isDigit():
             scanDigit(from: character)
+            
         // strings
         case "\"":
             scanString()
+            
         // comments
         case TokenType.slash.rawValue where match(character: "/"):
             ignoreComment()
+            
         // not equal
         case TokenType.bang.rawValue where match(character: "="):
             self.addToken(tokenType: TokenType.notEqual)
+        
+        // equal
         case TokenType.assigne.rawValue where match(character: "="):
             self.addToken(tokenType: TokenType.equal)
-            
+        
+        // greater or equal
         case TokenType.greater.rawValue where match(character: "="):
             self.addToken(tokenType: TokenType.greaterOrEqual)
+            
+        // less or equal
         case TokenType.less.rawValue where match(character: "="):
             self.addToken(tokenType: TokenType.lessOrEqual)
             
-        case TokenType.bang.rawValue where match(character: "="):
-            self.addToken(tokenType: TokenType.notEqual)
+        case _ where shouldIgnore(character: currentCharacter):
+            return
+            
         // single characters
-        case _ where currentCharacter.count == 1 :
+        case _ where scanSingleCharacter(character: currentCharacter) != nil :
+            return
 
-            // ignore new line, space, tab characters
-            guard shouldIgnore(character: currentCharacter) == false else {
-                return
-            }
-            
-            guard scanSingleCharacter(character: currentCharacter) != nil else {
-                fallthrough
-            }
-            
         default:
             let error = LoxError(fileName: self.fileName,
                                  filePath:self.filePath,
@@ -113,7 +114,7 @@ public class LoxScanner : ScannerInterface {
         }
     }
     
-    func match(character:String) -> Bool {
+    private func match(character:String) -> Bool {
         
         guard cursor.endOfFile == false else {
             return false
@@ -132,13 +133,12 @@ public class LoxScanner : ScannerInterface {
         }
     }
     
-
-    func ignoreComment() {
+    private func ignoreComment() {
         while let aheadCharacter = cursor.nextCharacter(), aheadCharacter != "\n" {
         }
     }
     
-    func shouldIgnore(character:String) -> Bool {
+    private func shouldIgnore(character:String) -> Bool {
         switch character {
         case " ", "\r", "\t", "\n":
             return true
@@ -147,7 +147,27 @@ public class LoxScanner : ScannerInterface {
         }
     }
     
-    func scanInteger(from character:String) -> String? {
+    private func scanAlphaNumeric(from character:String) {
+        var identifier = "\(character)"
+        repeat {
+            guard let aheadCharacter = cursor.lookAhead(by: 1), aheadCharacter.isAlphanumeric() else {
+                break
+            }
+            identifier += aheadCharacter
+            // consume the character, can be replaced with seek
+            _ = cursor.nextCharacter()
+        } while cursor.endOfFile == false
+        
+        if let tokenType = TokenType(rawValue: identifier) {
+            // this is an keyword
+            addToken(tokenType: tokenType)
+        } else {
+            // this is identifier
+            addToken(tokenType: TokenType.identifier)
+        }
+    }
+    
+    private func scanInteger(from character:String) -> String? {
         var numberString:String = "\(character)"
 
         // parse the integer part
@@ -161,14 +181,13 @@ public class LoxScanner : ScannerInterface {
                 break
             }
             
-            
             numberString.append(validCharacter)
         } while cursor.endOfFile == false
         
         return numberString
     }
     
-    func scanDigit(from character:Character) {
+    private func scanDigit(from character:Character) {
         var numberString:String = "\(character)"
         var floatPart:String = ""
         
@@ -190,8 +209,6 @@ public class LoxScanner : ScannerInterface {
             floatPart = floatScanned
         }
         
-        
-        
         let finalNumberString = numberString + floatPart
         guard let number = Float(finalNumberString) else {
             let error = LoxError(fileName: self.fileName,
@@ -206,7 +223,7 @@ public class LoxScanner : ScannerInterface {
         
     }
     
-    func scanString() {
+    private func scanString() {
         var stringLiteral:String? = ""
         var aheadCharacter:String? = nil
         
@@ -238,29 +255,33 @@ public class LoxScanner : ScannerInterface {
         self.addToken(tokenType: TokenType.string, literal: stringLiteral, line: cursor.line)
     }
     
-    func scanSingleCharacter(character:String) -> TokenType? {
+    private func scanSingleCharacter(character:String) -> TokenType? {
         guard let tokenType = TokenType(rawValue: character) else {
             return nil
         }
         self.addToken(tokenType: tokenType)
         return tokenType
     }
+}
+
+// emit
+extension LoxScanner {
     
-    func addToken(tokenType:TokenType) {
+    private func addToken(tokenType:TokenType) {
         self.addToken(tokenType: tokenType, line: cursor.line)
     }
     
-    func addToken(tokenType:TokenType, lexem:String? = nil, literal: Any? = nil, line:Int) {
+    private func addToken(tokenType:TokenType, lexem:String? = nil, literal: Any? = nil, line:Int) {
         let lexem = lexem ?? self.cursor.getCurrentLexem()
         let token = Token(type: tokenType, lexem: lexem, literal: literal, line: line)
         self.emit(token: token)
     }
     
-    func emit(token: Token) {
+    private func emit(token: Token) {
         self.tokens.append(token)
     }
     
-    func emit(error:LoxError) {
+    private func emit(error:LoxError) {
         self.errors.append(error)
     }
 }

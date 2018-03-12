@@ -9,7 +9,7 @@
 import Foundation
 
 public struct LoxError : CustomStringConvertible {
-    public var description: String  {
+    public var description: String {
         return "\(self.fileName):\(self.lineNumber) => \(self.message) at \(self.location)"
     }
     
@@ -18,6 +18,5 @@ public struct LoxError : CustomStringConvertible {
     public let lineNumber:Int
     public let message:String
     public let location:String
-    
     
 }

@@ -20,10 +20,23 @@ extension Character {
             }
         }
         return isDigit
-//        for scalar in self.unicodeScalars where digits.contains(scalar) {
-//            return true
-//        }
-//        return false
+    }
+    
+    public func isAlphaOrUnderscore() -> Bool {
+        return self == "_" || self.isAlpha()
+    }
+    
+    public func isAlpha() -> Bool {
+        
+        let letter = CharacterSet.letters
+        var isLetter = false
+        self.unicodeScalars.forEach {
+            isLetter = letter.contains($0)
+            if  isLetter == false {
+                return
+            }
+        }
+        return isLetter
     }
 }
 
@@ -39,9 +52,9 @@ extension String {
             }
         }
         return isDigit
-        //        for scalar in self.unicodeScalars where digits.contains(scalar) {
-        //            return true
-        //        }
-        //        return false
+    }
+    
+    public func isAlphanumeric() -> Bool {
+        return self.rangeOfCharacter(from: CharacterSet.alphanumerics.inverted) == nil && self != ""
     }
 }

@@ -555,4 +555,49 @@ yep
         let value = tokens.first!.literal! as? Float
         XCTAssertTrue(value == 1963.500)
     }
+    
+    func test_if_it_can_scan_alphaNumeric() {
+        let source = "var helloWorld = 20"
+        let expectedLines = 1
+        scanner.source = source
+        
+        let tokens = scanner.scan()
+        let errors = scanner.errors
+        let lastToken = tokens[tokens.index(before: tokens.endIndex)]
+        
+        XCTAssertEqual(lastToken.line, expectedLines)
+        XCTAssertEqual(tokens.count, 5)
+        XCTAssertTrue(errors.isEmpty)
+        
+        XCTAssertNotNil(tokens.first)
+        XCTAssertTrue(tokens.first!.type == TokenType.var)
+        XCTAssertTrue(tokens.first!.lexem == "var")
+        
+        XCTAssertNotNil(tokens[1])
+        XCTAssertTrue(tokens[1].type == TokenType.identifier)
+        XCTAssertTrue(tokens[1].lexem == "helloWorld")
+        
+        XCTAssertNotNil(tokens[3])
+        XCTAssertTrue(tokens[3].type == TokenType.number)
+        XCTAssertTrue(tokens[3].lexem == "20")
+        let value = tokens[3].literal! as? Float
+        XCTAssertTrue(value == 20)
+
+    }
+    
+    func test_if_it_can_detect_wrong_alphaNumeric() {
+        let source = "var &helloWorld"
+        let expectedLines = 1
+        scanner.source = source
+        
+        let tokens = scanner.scan()
+        let errors = scanner.errors
+        let lastToken = tokens[tokens.index(before: tokens.endIndex)]
+        
+        XCTAssertEqual(lastToken.line, expectedLines)
+        XCTAssertEqual(tokens.count, 3)
+        XCTAssertTrue(errors.isEmpty == false)
+
+    }
+    
 }

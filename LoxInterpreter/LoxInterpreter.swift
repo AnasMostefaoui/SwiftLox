@@ -10,9 +10,9 @@ import Foundation
 
 public class LoxInterpreter {
     
-    var shouldExit:Bool = false
-    var hadError:Bool = false
-    var scanner:ScannerInterface
+    private var shouldExit:Bool = false
+    private var hadError:Bool = false
+    public private(set) var scanner:ScannerInterface
     
     public init(scanner:ScannerInterface) {
         self.scanner = scanner
@@ -40,7 +40,7 @@ public class LoxInterpreter {
         } while(shouldExit == false)
     }
     
-    private func execute(code:String)  {
+    private func execute(code:String) {
         guard self.hadError == false else {
             exit(2)
         }
