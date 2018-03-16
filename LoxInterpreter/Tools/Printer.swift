@@ -18,8 +18,22 @@ public class Printer {
         }
     }
     
-    func insertTabSpace() {
+    public func insertLine(line:String) {
+        let tabulation = "\t"
+        var spaces = ""
+        
+        for _ in 0..<identation {
+            spaces += tabulation
+        }
+        Swift.print(spaces + line, to: &output)
+    }
+    
+    public func pushTabSpace() {
         identation += 1
+    }
+    
+    public func popTabSpace() {
+        identation = (identation - 1) < 0 ? 0 : identation - 1
     }
     
     public func print(to url:URL, atomically:Bool = true) throws {

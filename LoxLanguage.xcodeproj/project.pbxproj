@@ -10,7 +10,6 @@
 		13CAFB7B2050216E004FE796 /* read_from_file_test_file.lox in Resources */ = {isa = PBXBuildFile; fileRef = 13CAFB7A2050216E004FE796 /* read_from_file_test_file.lox */; };
 		13CAFB7D20515FD5004FE796 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CAFB7C20515FD5004FE796 /* StringExtension.swift */; };
 		13DCF10D2057CE9E00D1F70E /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCF10C2057CE9E00D1F70E /* Expression.swift */; };
-		13DCF10F2057CF1900D1F70E /* ExpressionsGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCF10E2057CF1900D1F70E /* ExpressionsGenerator.swift */; };
 		13DCF1122057D72000D1F70E /* Printer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCF1112057D72000D1F70E /* Printer.swift */; };
 		13DCF1152057D8AE00D1F70E /* PrinterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCF1142057D8AE00D1F70E /* PrinterTests.swift */; };
 		A85D46A0204C29E900DA086D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85D469F204C29E900DA086D /* main.swift */; };
@@ -111,6 +110,7 @@
 		13DCF10B2057CE8C00D1F70E /* Expressions */ = {
 			isa = PBXGroup;
 			children = (
+				13E1B0EC205A521C00454503 /* AST */,
 				13DCF10C2057CE9E00D1F70E /* Expression.swift */,
 				13DCF10E2057CF1900D1F70E /* ExpressionsGenerator.swift */,
 			);
@@ -131,6 +131,13 @@
 				13DCF1142057D8AE00D1F70E /* PrinterTests.swift */,
 			);
 			path = Tools;
+			sourceTree = "<group>";
+		};
+		13E1B0EC205A521C00454503 /* AST */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AST;
 			sourceTree = "<group>";
 		};
 		A85D4693204C29E900DA086D = {
@@ -249,6 +256,7 @@
 				A85D46C4204C657A00DA086D /* Headers */,
 				A85D46C5204C657A00DA086D /* Resources */,
 				13DCF10A2056693200D1F70E /* Swift lint */,
+				13E1B0ED205A585100454503 /* Generate AST */,
 			);
 			buildRules = (
 			);
@@ -367,6 +375,20 @@
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
+		13E1B0ED205A585100454503 /* Generate AST */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Generate AST";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ./LoxInterpreter/Expressions/ExpressionsGenerator.swift;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -385,7 +407,6 @@
 				A85D46E3204C658800DA086D /* LoxInterpreter.swift in Sources */,
 				A85D46DF204C658800DA086D /* LoxScanner.swift in Sources */,
 				13DCF10D2057CE9E00D1F70E /* Expression.swift in Sources */,
-				13DCF10F2057CF1900D1F70E /* ExpressionsGenerator.swift in Sources */,
 				13DCF1122057D72000D1F70E /* Printer.swift in Sources */,
 				A85D46E2204C658800DA086D /* Token.swift in Sources */,
 				A85D46DE204C658800DA086D /* TokenType.swift in Sources */,

@@ -1,3 +1,4 @@
+#!/usr/bin/swift
 //
 //  ExpressionsGenerator.swift
 //  LoxInterpreter
@@ -47,7 +48,7 @@ public class ExpressionGenerator {
     }
     
     private func generateType(typeName:String, baseName:String, fields:[String], outputPath:URL) throws {
-        var fileContent = ""
+        
     }
     
     private func writeToFile(text:String, fileURL:URL, atomically:Bool = true) throws {
