@@ -8,6 +8,9 @@
 
 import Foundation
 
-public struct Expression {
-    public let child:[Expression]
+public indirect enum Expression {
+    case binary(left: Expression, operator: Token, right: Expression)
+    case grouping(expression: Expression)
+    case literal(value:LiteralValue)
+    case unary(operator:Token, right:Expression)
 }
