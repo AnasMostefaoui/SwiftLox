@@ -10,11 +10,11 @@ import Foundation
 
 public struct Token : CustomStringConvertible {
     public var description: String {
-        return "\(self.type) \(lexem) \(self.literal ?? "")"
+        return "\(type) \(lexem) \(literal?.description ?? "")"
     }
     
     public let type:TokenType
     public let lexem:String
-    public let literal:Any?
+    public let literal:LiteralValue?
     public let line:Int
 }

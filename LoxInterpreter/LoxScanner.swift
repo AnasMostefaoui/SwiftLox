@@ -219,12 +219,13 @@ public class LoxScanner : ScannerInterface {
             return
         }
         
-        self.addToken(tokenType: TokenType.number, literal: number, line: cursor.line)
+        let literal = LiteralValue.float(value: number)
+        self.addToken(tokenType: TokenType.number, literal: literal, line: cursor.line)
         
     }
     
     private func scanString() {
-        var stringLiteral:String? = ""
+        var stringLiteral:String = ""
         var aheadCharacter:String? = nil
         
         repeat {
@@ -239,7 +240,7 @@ public class LoxScanner : ScannerInterface {
                 break
             }
             
-            stringLiteral?.append(validCharacter)
+            stringLiteral.append(validCharacter)
         } while cursor.endOfFile == false
         
         guard aheadCharacter == "\"" else {
@@ -252,7 +253,8 @@ public class LoxScanner : ScannerInterface {
             
         }
 
-        self.addToken(tokenType: TokenType.string, literal: stringLiteral, line: cursor.line)
+        let literal = LiteralValue.string(value: stringLiteral)
+        self.addToken(tokenType: TokenType.string, literal: literal, line: cursor.line)
     }
     
     private func scanSingleCharacter(character:String) -> TokenType? {
@@ -271,7 +273,7 @@ extension LoxScanner {
         self.addToken(tokenType: tokenType, line: cursor.line)
     }
     
-    private func addToken(tokenType:TokenType, lexem:String? = nil, literal: Any? = nil, line:Int) {
+    private func addToken(tokenType:TokenType, lexem:String? = nil, literal: LiteralValue? = nil, line:Int) {
         let lexem = lexem ?? self.cursor.getCurrentLexem()
         let token = Token(type: tokenType, lexem: lexem, literal: literal, line: line)
         self.emit(token: token)

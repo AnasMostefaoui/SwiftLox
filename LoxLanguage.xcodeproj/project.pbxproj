@@ -10,8 +10,13 @@
 		13CAFB7B2050216E004FE796 /* read_from_file_test_file.lox in Resources */ = {isa = PBXBuildFile; fileRef = 13CAFB7A2050216E004FE796 /* read_from_file_test_file.lox */; };
 		13CAFB7D20515FD5004FE796 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CAFB7C20515FD5004FE796 /* StringExtension.swift */; };
 		13DCF10D2057CE9E00D1F70E /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCF10C2057CE9E00D1F70E /* Expression.swift */; };
-		13DCF1122057D72000D1F70E /* Printer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCF1112057D72000D1F70E /* Printer.swift */; };
 		13DCF1152057D8AE00D1F70E /* PrinterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCF1142057D8AE00D1F70E /* PrinterTests.swift */; };
+		A84EE478205CD6AF009CEB6D /* TypeGeneration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84EE477205CD6AF009CEB6D /* TypeGeneration.swift */; };
+		A84EE494205CFF21009CEB6D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84EE493205CFF21009CEB6D /* main.swift */; };
+		A84EE49B205CFFDD009CEB6D /* ExpressionsGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCF10E2057CF1900D1F70E /* ExpressionsGenerator.swift */; };
+		A84EE49C205CFFE1009CEB6D /* Printer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCF1112057D72000D1F70E /* Printer.swift */; };
+		A84EE49E205D01B2009CEB6D /* LoxInterpreter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A85D46C7204C657A00DA086D /* LoxInterpreter.framework */; };
+		A857CEAC205D0FA400E391FE /* LiteralValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A857CEAB205D0FA400E391FE /* LiteralValue.swift */; };
 		A85D46A0204C29E900DA086D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85D469F204C29E900DA086D /* main.swift */; };
 		A85D46D0204C657A00DA086D /* LoxInterpreter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A85D46C7204C657A00DA086D /* LoxInterpreter.framework */; };
 		A85D46D5204C657A00DA086D /* LoxInterpreterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85D46D4204C657A00DA086D /* LoxInterpreterTests.swift */; };
@@ -37,6 +42,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		A84EE48F205CFF20009CEB6D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		A85D469A204C29E900DA086D /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -55,6 +69,10 @@
 		13DCF10E2057CF1900D1F70E /* ExpressionsGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionsGenerator.swift; sourceTree = "<group>"; };
 		13DCF1112057D72000D1F70E /* Printer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Printer.swift; sourceTree = "<group>"; };
 		13DCF1142057D8AE00D1F70E /* PrinterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterTests.swift; sourceTree = "<group>"; };
+		A84EE477205CD6AF009CEB6D /* TypeGeneration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeGeneration.swift; sourceTree = "<group>"; };
+		A84EE491205CFF20009CEB6D /* ASTGenerator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ASTGenerator; sourceTree = BUILT_PRODUCTS_DIR; };
+		A84EE493205CFF21009CEB6D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		A857CEAB205D0FA400E391FE /* LiteralValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiteralValue.swift; sourceTree = "<group>"; };
 		A85D469C204C29E900DA086D /* LoxLanguage */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LoxLanguage; sourceTree = BUILT_PRODUCTS_DIR; };
 		A85D469F204C29E900DA086D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		A85D46A6204C2B9000DA086D /* LoxInterpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoxInterpreter.swift; sourceTree = "<group>"; };
@@ -74,6 +92,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A84EE48E205CFF20009CEB6D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A84EE49E205D01B2009CEB6D /* LoxInterpreter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A85D4699204C29E900DA086D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -112,7 +138,6 @@
 			children = (
 				13E1B0EC205A521C00454503 /* AST */,
 				13DCF10C2057CE9E00D1F70E /* Expression.swift */,
-				13DCF10E2057CF1900D1F70E /* ExpressionsGenerator.swift */,
 			);
 			path = Expressions;
 			sourceTree = "<group>";
@@ -120,7 +145,7 @@
 		13DCF1102057D71300D1F70E /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				13DCF1112057D72000D1F70E /* Printer.swift */,
+				A84EE476205CD689009CEB6D /* CodeGeneration */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -140,13 +165,40 @@
 			path = AST;
 			sourceTree = "<group>";
 		};
+		A84EE476205CD689009CEB6D /* CodeGeneration */ = {
+			isa = PBXGroup;
+			children = (
+				13DCF1112057D72000D1F70E /* Printer.swift */,
+				13DCF10E2057CF1900D1F70E /* ExpressionsGenerator.swift */,
+				A84EE477205CD6AF009CEB6D /* TypeGeneration.swift */,
+			);
+			path = CodeGeneration;
+			sourceTree = "<group>";
+		};
+		A84EE492205CFF20009CEB6D /* ASTGenerator */ = {
+			isa = PBXGroup;
+			children = (
+				A84EE493205CFF21009CEB6D /* main.swift */,
+			);
+			path = ASTGenerator;
+			sourceTree = "<group>";
+		};
+		A84EE49D205D01B2009CEB6D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A85D4693204C29E900DA086D = {
 			isa = PBXGroup;
 			children = (
+				A84EE492205CFF20009CEB6D /* ASTGenerator */,
 				A85D469E204C29E900DA086D /* LoxLanguage */,
 				A85D46C8204C657A00DA086D /* LoxInterpreter */,
 				A85D46D3204C657A00DA086D /* LoxInterpreterTests */,
 				A85D469D204C29E900DA086D /* Products */,
+				A84EE49D205D01B2009CEB6D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -156,6 +208,7 @@
 				A85D469C204C29E900DA086D /* LoxLanguage */,
 				A85D46C7204C657A00DA086D /* LoxInterpreter.framework */,
 				A85D46CF204C657A00DA086D /* LoxInterpreterTests.xctest */,
+				A84EE491205CFF20009CEB6D /* ASTGenerator */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -183,6 +236,7 @@
 				A85D46CA204C657A00DA086D /* Info.plist */,
 				A85D46E7204C97E200DA086D /* ScannerCursor.swift */,
 				13CAFB7C20515FD5004FE796 /* StringExtension.swift */,
+				A857CEAB205D0FA400E391FE /* LiteralValue.swift */,
 			);
 			path = LoxInterpreter;
 			sourceTree = "<group>";
@@ -229,6 +283,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		A84EE490205CFF20009CEB6D /* ASTGenerator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A84EE495205CFF21009CEB6D /* Build configuration list for PBXNativeTarget "ASTGenerator" */;
+			buildPhases = (
+				A84EE48D205CFF20009CEB6D /* Sources */,
+				A84EE48E205CFF20009CEB6D /* Frameworks */,
+				A84EE48F205CFF20009CEB6D /* CopyFiles */,
+				A84EE49A205CFF80009CEB6D /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ASTGenerator;
+			productName = ASTGenerator;
+			productReference = A84EE491205CFF20009CEB6D /* ASTGenerator */;
+			productType = "com.apple.product-type.tool";
+		};
 		A85D469B204C29E900DA086D /* LoxLanguage */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A85D46A3204C29E900DA086D /* Build configuration list for PBXNativeTarget "LoxLanguage" */;
@@ -256,7 +328,6 @@
 				A85D46C4204C657A00DA086D /* Headers */,
 				A85D46C5204C657A00DA086D /* Resources */,
 				13DCF10A2056693200D1F70E /* Swift lint */,
-				13E1B0ED205A585100454503 /* Generate AST */,
 			);
 			buildRules = (
 			);
@@ -295,6 +366,10 @@
 				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = Nyris;
 				TargetAttributes = {
+					A84EE490205CFF20009CEB6D = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
 					A85D469B204C29E900DA086D = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
@@ -324,6 +399,7 @@
 				A85D469B204C29E900DA086D /* LoxLanguage */,
 				A85D46C6204C657A00DA086D /* LoxInterpreter */,
 				A85D46CE204C657A00DA086D /* LoxInterpreterTests */,
+				A84EE490205CFF20009CEB6D /* ASTGenerator */,
 			);
 		};
 /* End PBXProject section */
@@ -375,23 +451,30 @@
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
-		13E1B0ED205A585100454503 /* Generate AST */ = {
+		A84EE49A205CFF80009CEB6D /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Generate AST";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = ./LoxInterpreter/Expressions/ExpressionsGenerator.swift;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A84EE48D205CFF20009CEB6D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A84EE494205CFF21009CEB6D /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A85D4698204C29E900DA086D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -404,16 +487,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A84EE49C205CFFE1009CEB6D /* Printer.swift in Sources */,
 				A85D46E3204C658800DA086D /* LoxInterpreter.swift in Sources */,
 				A85D46DF204C658800DA086D /* LoxScanner.swift in Sources */,
 				13DCF10D2057CE9E00D1F70E /* Expression.swift in Sources */,
-				13DCF1122057D72000D1F70E /* Printer.swift in Sources */,
 				A85D46E2204C658800DA086D /* Token.swift in Sources */,
 				A85D46DE204C658800DA086D /* TokenType.swift in Sources */,
 				13CAFB7D20515FD5004FE796 /* StringExtension.swift in Sources */,
 				A85D46E8204C97E200DA086D /* ScannerCursor.swift in Sources */,
 				A85D46E1204C658800DA086D /* LoxError.swift in Sources */,
+				A84EE478205CD6AF009CEB6D /* TypeGeneration.swift in Sources */,
 				A85D46E0204C658800DA086D /* ScannerInterface.swift in Sources */,
+				A857CEAC205D0FA400E391FE /* LiteralValue.swift in Sources */,
+				A84EE49B205CFFDD009CEB6D /* ExpressionsGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,6 +524,26 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		A84EE496205CFF21009CEB6D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = N8QJ9895UP;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		A84EE497205CFF21009CEB6D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = N8QJ9895UP;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
 		A85D46A1204C29E900DA086D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -647,6 +753,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A84EE495205CFF21009CEB6D /* Build configuration list for PBXNativeTarget "ASTGenerator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A84EE496205CFF21009CEB6D /* Debug */,
+				A84EE497205CFF21009CEB6D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A85D4697204C29E900DA086D /* Build configuration list for PBXProject "LoxLanguage" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
