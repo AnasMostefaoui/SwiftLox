@@ -12,13 +12,6 @@ import Foundation
 // https://github.com/hashemi/slox
 extension Expression {
     
-    var reversePolishNotation:String {
-        guard case Expression.binary(let lhs, let opr, let rhs) = self else {
-            fatalError("Only Expression.binary is supported for Reversed Polish Notation")
-        }
-        return ""
-    }
-    
     var ast:String {
         switch self {
         case .binary(let lhs, let opr, let rhs):
