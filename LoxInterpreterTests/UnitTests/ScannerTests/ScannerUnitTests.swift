@@ -508,8 +508,10 @@ yep
         let lastToken = tokens[tokens.index(before: tokens.endIndex)]
         
         XCTAssertEqual(lastToken.line, expectedLines)
-        XCTAssertEqual(tokens.count, 2)
-        XCTAssertTrue(errors.isEmpty == false)
+        // k is considered now as identifier
+        // but the string lexem and literal should not contain k
+        XCTAssertEqual(tokens.count, 3)
+        XCTAssertTrue(errors.isEmpty)
         XCTAssertNotNil(tokens.first)
         XCTAssertTrue(tokens.first!.lexem == "\"hi\"")
         XCTAssertTrue(tokens.first!.lexem != "\"hi\"k")
@@ -530,9 +532,14 @@ yep
         XCTAssertEqual(tokens.count, 3)
         XCTAssertTrue(errors.isEmpty)
         XCTAssertNotNil(tokens.first)
+        XCTAssertNotNil(tokens.first!.literal)
         XCTAssertTrue(tokens.first!.type == TokenType.number)
         XCTAssertTrue(tokens.first!.lexem == "1963")
-        let value = tokens.first!.literal! as? Float
+        
+        guard case LiteralValue.float(let value) = tokens.first!.literal! else {
+            XCTFail("Invalid float literal: \(tokens.first!.literal!)")
+            return
+        }
         XCTAssertTrue(value == 1963)
         
     }
@@ -552,7 +559,11 @@ yep
         XCTAssertNotNil(tokens.first)
         XCTAssertTrue(tokens.first!.type == TokenType.number)
         XCTAssertTrue(tokens.first!.lexem == "1963.500")
-        let value = tokens.first!.literal! as? Float
+        
+        guard case LiteralValue.float(let value) = tokens.first!.literal! else {
+            XCTFail("Invalid float literal: \(tokens.first!.literal!)")
+            return
+        }
         XCTAssertTrue(value == 1963.500)
     }
     
@@ -580,7 +591,12 @@ yep
         XCTAssertNotNil(tokens[3])
         XCTAssertTrue(tokens[3].type == TokenType.number)
         XCTAssertTrue(tokens[3].lexem == "20")
-        let value = tokens[3].literal! as? Float
+
+        
+        guard case LiteralValue.float(let value) = tokens[3].literal! else {
+            XCTFail("Invalid float literal: \(tokens[3].literal!)")
+            return
+        }
         XCTAssertTrue(value == 20)
 
     }
