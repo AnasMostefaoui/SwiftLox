@@ -1,4 +1,6 @@
-#!/usr/bin/swift
+//#!/usr/bin/swift
+// ./LoxInterpreter/Expressions/ExpressionsGenerator.swift
+
 //
 //  ExpressionsGenerator.swift
 //  LoxInterpreter
@@ -14,8 +16,11 @@ public enum ProductionError : Error {
     case invalidBody(message:String)
 }
 
-public class ExpressionGenerator {
+public class ExpressionsGenerator {
     
+    public init() {
+        
+    }
     // "expression -> name: Token, value: Expr"
     public func defineAST(baseName:String, types:[String], outputPath:URL) throws {
         guard types.isEmpty == false else {

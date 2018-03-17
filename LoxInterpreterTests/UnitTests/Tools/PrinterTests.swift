@@ -32,34 +32,38 @@ class PrinterTests: XCTestCase {
     }
     
     func test_if_it_can_insert_new_lines() {
-        printer.insertNewLine()
+        printer.newLine()
         var result = printer.output
         var newLinesNumber = result.components(separatedBy: "\n").count - 1
         XCTAssertEqual(newLinesNumber, 1)
         
-        printer.insertNewLine(repeatCount: 2)
+        printer.newLine(repeatCount: 2)
         result = printer.output
         newLinesNumber = result.components(separatedBy: "\n").count - 1
         XCTAssertEqual(newLinesNumber, 1 + 2)
     }
     
-    func test_if_it_can_insert_identations() {
-        printer.insertLine(line: "// generated code")
-        printer.insertLine(line: "class Test {")
-        printer.pushTabSpace()
-        printer.insertLine(line: "var property1:String = \"\"")
-        printer.insertLine(line: "var property2:UInt = 0")
-        printer.popTabSpace()
-        printer.insertLine(line: "}")
+    func test_if_it_can_create_expressions_classes() {
+    
+        printer.comment(comment: "generated code")
+            .newLine()
+            .importLine(module: "UIKit")
+            .typeDeclaration(kind: "class", name: "Test", base: "NSObject")
+            .pushTab()
+            .property(declaration: "var", identifier: "test", type: "String", value: "\"\"")
+            .property(declaration: "var", identifier: "property1", type: "String", value: "\"\"")
+            .popTab()
+            .closeTypeDeclaration()
         
-        let fileManager = FileManager.default
-        let desktop = fileManager.urls(for: .desktopDirectory, in: .userDomainMask).first
-        
-        let outputDir = "./LoxInterpreter/Expressions/AST/"
-        let path = URL(fileURLWithPath: "Test.swift", relativeTo: URL(fileURLWithPath: outputDir))
-        try? printer.print(to: path)
+        let path = URL(fileURLWithPath: "Test.swift", relativeTo: outputPath)
+        do {
+            try printer.write(to: path)
+        } catch {
+            print(error)
+        }
         
         XCTAssertEqual(3, 1 + 2)
         
     }
 }
+
