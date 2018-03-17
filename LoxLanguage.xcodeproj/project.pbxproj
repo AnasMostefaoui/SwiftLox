@@ -10,13 +10,11 @@
 		13CAFB7B2050216E004FE796 /* read_from_file_test_file.lox in Resources */ = {isa = PBXBuildFile; fileRef = 13CAFB7A2050216E004FE796 /* read_from_file_test_file.lox */; };
 		13CAFB7D20515FD5004FE796 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CAFB7C20515FD5004FE796 /* StringExtension.swift */; };
 		13DCF10D2057CE9E00D1F70E /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCF10C2057CE9E00D1F70E /* Expression.swift */; };
-		13DCF1152057D8AE00D1F70E /* PrinterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCF1142057D8AE00D1F70E /* PrinterTests.swift */; };
-		A84EE478205CD6AF009CEB6D /* TypeGeneration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84EE477205CD6AF009CEB6D /* TypeGeneration.swift */; };
 		A84EE494205CFF21009CEB6D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84EE493205CFF21009CEB6D /* main.swift */; };
-		A84EE49B205CFFDD009CEB6D /* ExpressionsGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCF10E2057CF1900D1F70E /* ExpressionsGenerator.swift */; };
-		A84EE49C205CFFE1009CEB6D /* Printer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCF1112057D72000D1F70E /* Printer.swift */; };
 		A84EE49E205D01B2009CEB6D /* LoxInterpreter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A85D46C7204C657A00DA086D /* LoxInterpreter.framework */; };
 		A857CEAC205D0FA400E391FE /* LiteralValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A857CEAB205D0FA400E391FE /* LiteralValue.swift */; };
+		A857CEAE205D33F900E391FE /* Expression+AST.swift in Sources */ = {isa = PBXBuildFile; fileRef = A857CEAD205D33F900E391FE /* Expression+AST.swift */; };
+		A857CEB1205D367700E391FE /* ExpressionsASTUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A857CEB0205D367700E391FE /* ExpressionsASTUnitTests.swift */; };
 		A85D46A0204C29E900DA086D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85D469F204C29E900DA086D /* main.swift */; };
 		A85D46D0204C657A00DA086D /* LoxInterpreter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A85D46C7204C657A00DA086D /* LoxInterpreter.framework */; };
 		A85D46D5204C657A00DA086D /* LoxInterpreterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85D46D4204C657A00DA086D /* LoxInterpreterTests.swift */; };
@@ -66,13 +64,11 @@
 		13CAFB7A2050216E004FE796 /* read_from_file_test_file.lox */ = {isa = PBXFileReference; lastKnownFileType = text; path = read_from_file_test_file.lox; sourceTree = "<group>"; };
 		13CAFB7C20515FD5004FE796 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		13DCF10C2057CE9E00D1F70E /* Expression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expression.swift; sourceTree = "<group>"; };
-		13DCF10E2057CF1900D1F70E /* ExpressionsGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionsGenerator.swift; sourceTree = "<group>"; };
-		13DCF1112057D72000D1F70E /* Printer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Printer.swift; sourceTree = "<group>"; };
-		13DCF1142057D8AE00D1F70E /* PrinterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterTests.swift; sourceTree = "<group>"; };
-		A84EE477205CD6AF009CEB6D /* TypeGeneration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeGeneration.swift; sourceTree = "<group>"; };
 		A84EE491205CFF20009CEB6D /* ASTGenerator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ASTGenerator; sourceTree = BUILT_PRODUCTS_DIR; };
 		A84EE493205CFF21009CEB6D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		A857CEAB205D0FA400E391FE /* LiteralValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiteralValue.swift; sourceTree = "<group>"; };
+		A857CEAD205D33F900E391FE /* Expression+AST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expression+AST.swift"; sourceTree = "<group>"; };
+		A857CEB0205D367700E391FE /* ExpressionsASTUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionsASTUnitTests.swift; sourceTree = "<group>"; };
 		A85D469C204C29E900DA086D /* LoxLanguage */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LoxLanguage; sourceTree = BUILT_PRODUCTS_DIR; };
 		A85D469F204C29E900DA086D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		A85D46A6204C2B9000DA086D /* LoxInterpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoxInterpreter.swift; sourceTree = "<group>"; };
@@ -145,7 +141,6 @@
 		13DCF1102057D71300D1F70E /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				A84EE476205CD689009CEB6D /* CodeGeneration */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -153,7 +148,6 @@
 		13DCF1132057D89F00D1F70E /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				13DCF1142057D8AE00D1F70E /* PrinterTests.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -161,18 +155,9 @@
 		13E1B0EC205A521C00454503 /* AST */ = {
 			isa = PBXGroup;
 			children = (
+				A857CEAD205D33F900E391FE /* Expression+AST.swift */,
 			);
 			path = AST;
-			sourceTree = "<group>";
-		};
-		A84EE476205CD689009CEB6D /* CodeGeneration */ = {
-			isa = PBXGroup;
-			children = (
-				13DCF1112057D72000D1F70E /* Printer.swift */,
-				13DCF10E2057CF1900D1F70E /* ExpressionsGenerator.swift */,
-				A84EE477205CD6AF009CEB6D /* TypeGeneration.swift */,
-			);
-			path = CodeGeneration;
 			sourceTree = "<group>";
 		};
 		A84EE492205CFF20009CEB6D /* ASTGenerator */ = {
@@ -188,6 +173,14 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A857CEAF205D365C00E391FE /* AST */ = {
+			isa = PBXGroup;
+			children = (
+				A857CEB0205D367700E391FE /* ExpressionsASTUnitTests.swift */,
+			);
+			path = AST;
 			sourceTree = "<group>";
 		};
 		A85D4693204C29E900DA086D = {
@@ -255,6 +248,7 @@
 		A85D46E4204C66D100DA086D /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				A857CEAF205D365C00E391FE /* AST */,
 				13DCF1132057D89F00D1F70E /* Tools */,
 				A85D46E5204C66D700DA086D /* ScannerTests */,
 			);
@@ -487,19 +481,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A84EE49C205CFFE1009CEB6D /* Printer.swift in Sources */,
 				A85D46E3204C658800DA086D /* LoxInterpreter.swift in Sources */,
 				A85D46DF204C658800DA086D /* LoxScanner.swift in Sources */,
 				13DCF10D2057CE9E00D1F70E /* Expression.swift in Sources */,
 				A85D46E2204C658800DA086D /* Token.swift in Sources */,
 				A85D46DE204C658800DA086D /* TokenType.swift in Sources */,
+				A857CEAE205D33F900E391FE /* Expression+AST.swift in Sources */,
 				13CAFB7D20515FD5004FE796 /* StringExtension.swift in Sources */,
 				A85D46E8204C97E200DA086D /* ScannerCursor.swift in Sources */,
 				A85D46E1204C658800DA086D /* LoxError.swift in Sources */,
-				A84EE478205CD6AF009CEB6D /* TypeGeneration.swift in Sources */,
 				A85D46E0204C658800DA086D /* ScannerInterface.swift in Sources */,
 				A857CEAC205D0FA400E391FE /* LiteralValue.swift in Sources */,
-				A84EE49B205CFFDD009CEB6D /* ExpressionsGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -508,7 +500,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A85D46E6204C678600DA086D /* ScannerUnitTests.swift in Sources */,
-				13DCF1152057D8AE00D1F70E /* PrinterTests.swift in Sources */,
+				A857CEB1205D367700E391FE /* ExpressionsASTUnitTests.swift in Sources */,
 				A85D46D5204C657A00DA086D /* LoxInterpreterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
