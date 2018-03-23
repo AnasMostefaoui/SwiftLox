@@ -3,7 +3,7 @@
 //  LoxInterpreter
 //
 //  Created by MOSTEFAOUI Anas on 04/03/2018.
-//  Copyright © 2018 Nyris. All rights reserved.
+//  Copyright © 2018 Mohamed Anes MOSTEFAOUI. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
