@@ -10,12 +10,17 @@ import Foundation
 
 public final class Parser {
     let tokens:[Token]
+    var errors:[ParserError] = []
     var current:UInt = 0
     var cursor:ParserCursor
     
     public init(tokens:[Token]) {
         self.tokens = tokens
         self.cursor = ParserCursor(tokens: self.tokens)
+    }
+    
+    public func parse() -> Expression? {
+        return try? expression()
     }
     
     //expression     → equality ;
@@ -103,11 +108,29 @@ public final class Parser {
         if match(tokensTypes: .leftParenthesis) != nil {
             let expression = try self.expression()
             // consume right parent
-            //  consume(RIGHT_PAREN, "Expect ')' after expression.");
+            _ = try self.consume(tokenType: .rightParenthesis,
+                                 message: "Expect ')' after expression.")
             return Expression.grouping(expression: expression)
         }
         
-        throw ParserError.unexpectedExpression(message: "Unexpected expression")
+        let error = ParserError.unexpectedExpression(message: "Unexpected expression")
+        self.emit(error: error)
+        throw error
+    }
+    
+    func consume(tokenType:TokenType, message:String) throws -> Token? {
+        guard cursor.check(tokenType: tokenType) else {
+            let currentToken = cursor.currentToken
+            let errorMessage = "Line \(currentToken.line): at \(currentToken.lexem), \(message)"
+            let error = ParserError.unexpectedExpression(message: errorMessage)
+            self.emit(error: error)
+            throw error
+        }
+        return cursor.advance()
+    }
+    
+    func emit(error:ParserError) {
+        self.errors.append(error)
     }
     
     func match(tokensTypes:TokenType...) -> Token? {
