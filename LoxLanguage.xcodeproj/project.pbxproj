@@ -30,6 +30,8 @@
 		A85D46E3204C658800DA086D /* LoxInterpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85D46A6204C2B9000DA086D /* LoxInterpreter.swift */; };
 		A85D46E6204C678600DA086D /* ScannerUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85D46C0204C642300DA086D /* ScannerUnitTests.swift */; };
 		A85D46E8204C97E200DA086D /* ScannerCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85D46E7204C97E200DA086D /* ScannerCursor.swift */; };
+		A86AE84D206841A20047915C /* ParserError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86AE84C206841A20047915C /* ParserError.swift */; };
+		A86AE84F206846270047915C /* ParserCursorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86AE84E206846270047915C /* ParserCursorTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +93,8 @@
 		A85D46D4204C657A00DA086D /* LoxInterpreterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoxInterpreterTests.swift; sourceTree = "<group>"; };
 		A85D46D6204C657A00DA086D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A85D46E7204C97E200DA086D /* ScannerCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerCursor.swift; sourceTree = "<group>"; };
+		A86AE84C206841A20047915C /* ParserError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserError.swift; sourceTree = "<group>"; };
+		A86AE84E206846270047915C /* ParserCursorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserCursorTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +198,7 @@
 			children = (
 				A857CEB3206040FA00E391FE /* Parser.swift */,
 				A857CEB82060491D00E391FE /* ParserCursor.swift */,
+				A86AE84C206841A20047915C /* ParserError.swift */,
 			);
 			path = Parser;
 			sourceTree = "<group>";
@@ -202,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				A857CEB62060411C00E391FE /* ParserUnitTests.swift */,
+				A86AE84E206846270047915C /* ParserCursorTests.swift */,
 			);
 			path = ParserTests;
 			sourceTree = "<group>";
@@ -509,6 +515,7 @@
 				A85D46E3204C658800DA086D /* LoxInterpreter.swift in Sources */,
 				A85D46DF204C658800DA086D /* LoxScanner.swift in Sources */,
 				13DCF10D2057CE9E00D1F70E /* Expression.swift in Sources */,
+				A86AE84D206841A20047915C /* ParserError.swift in Sources */,
 				A85D46E2204C658800DA086D /* Token.swift in Sources */,
 				A85D46DE204C658800DA086D /* TokenType.swift in Sources */,
 				A857CEAE205D33F900E391FE /* Expression+AST.swift in Sources */,
@@ -529,6 +536,7 @@
 				A857CEB72060411C00E391FE /* ParserUnitTests.swift in Sources */,
 				A85D46E6204C678600DA086D /* ScannerUnitTests.swift in Sources */,
 				A857CEB1205D367700E391FE /* ExpressionsASTUnitTests.swift in Sources */,
+				A86AE84F206846270047915C /* ParserCursorTests.swift in Sources */,
 				A85D46D5204C657A00DA086D /* LoxInterpreterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -25,6 +25,10 @@ public final class ParserCursor {
         return tokens[currentPosition].type == .eof
     }
     
+    public var currentToken:Token {
+        return tokens[currentPosition]
+    }
+    
     public func advance() -> Token? {
         guard endOfFile == false else {
             return tokens.last
