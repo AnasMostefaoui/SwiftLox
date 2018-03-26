@@ -12,6 +12,8 @@ public final class ParserCursor {
     
     public var startPosition:UInt = 0
     public var currentPosition:Int = 0
+    private var previousPosition:Int = 0
+    
     private let tokens:[Token]
     
     public init(tokens:[Token]) {
@@ -26,16 +28,28 @@ public final class ParserCursor {
     }
     
     public var currentToken:Token {
+        guard currentPosition  < tokens.count else {
+            fatalError("Token position Out of range")
+        }
         return tokens[currentPosition]
     }
     
+    public var previousToken:Token {
+        guard previousPosition >= 0 else {
+            fatalError("Token position Out of range")
+        }
+        return tokens[previousPosition]
+    }
+    
+    @discardableResult
     public func advance() -> Token? {
         guard endOfFile == false else {
             return tokens.last
         }
         
-        let token = tokens[currentPosition]
+        previousPosition = currentPosition
         currentPosition += 1
+        let token = tokens[currentPosition]
         return token
     }
     
@@ -43,11 +57,8 @@ public final class ParserCursor {
         guard endOfFile == false else {
             return false
         }
-        guard let aheadToken = lookAhead(by: 1) else {
-            return false
-        }
         
-        return aheadToken.type == tokenType
+        return currentToken.type == tokenType
     }
     
     public func lookAhead(by offset:Int) -> Token? {

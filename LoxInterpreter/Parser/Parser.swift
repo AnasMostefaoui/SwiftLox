@@ -20,7 +20,13 @@ public final class Parser {
     }
     
     public func parse() -> Expression? {
-        return try? expression()
+        do {
+            let expression = try self.expression()
+            return expression
+        } catch {
+            print(error)
+            return nil
+        }
     }
     
     //expression     → equality ;
@@ -58,7 +64,7 @@ public final class Parser {
     // multiplication ( ( "-" | "+" ) multiplication )* ;
     func addition() throws -> Expression {
         var multiplication = try self.multiplication()
-        while let token = match(tokensTypes: .minus, .star) {
+        while let token = match(tokensTypes: .minus, .plus) {
             let rightExpr = try self.multiplication()
             multiplication = Expression.binary(left: multiplication, operator: token,
                                                right: rightExpr)
@@ -140,10 +146,31 @@ public final class Parser {
                 continue
             }
             
-            let matchedToken = cursor.advance()
-            return matchedToken
+            _ = cursor.advance()
+            return cursor.previousToken
 
         }
         return nil
+    }
+}
+
+extension Parser {
+    func synchronize() {
+        
+        cursor.advance()
+        
+        while cursor.endOfFile == false {
+            
+            if cursor.previousToken.type == .semicolon {
+                return
+            }
+            
+            switch cursor.currentToken.type {
+            case .class, .fun, .var, .for, .if, .while, .return:
+                return
+            default :
+                cursor.advance()
+            }
+        }
     }
 }

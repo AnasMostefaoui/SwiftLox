@@ -11,26 +11,43 @@ import XCTest
 
 class ParserUnitTests: XCTestCase {
 
+    var parser:Parser!
+    var scanner = LoxScanner()
+    
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func test_if_it_can_parse_1_plus_1() {
+        let code = "1+1"
+        scanner.source = code
+        let tokens = scanner.scan()
+        parser = Parser(tokens: tokens)
+        let expression = parser.parse()
+        XCTAssertNotNil(expression)
+        
+        let ast = expression!.ast
+        XCTAssertNotNil(expression)
+        XCTAssertTrue(ast == "(+ 1.0 1.0)")
+        print(ast)
     }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func test_if_it_can_parse_group_4_plus_3_x_group_2_x4() {
+        let code = "(4+3)*(2*4)"
+        scanner.source = code
+        let tokens = scanner.scan()
+        parser = Parser(tokens: tokens)
+        let expression = parser.parse()
+        XCTAssertNotNil(expression)
+        
+        let ast = expression!.ast
+        XCTAssertNotNil(expression)
+        XCTAssertTrue(ast == "(* (group (+ 4.0 3.0)) (group (* 2.0 4.0)))")
+        print(ast)
     }
 
 }
