@@ -12,7 +12,7 @@ import Foundation
 // https://github.com/hashemi/slox
 extension Expression {
     
-    var ast:String {
+    public var ast:String {
         switch self {
         case .binary(let lhs, let opr, let rhs):
             return parenthesize(operatorName: opr.lexem, expressions: lhs, rhs)
@@ -28,7 +28,7 @@ extension Expression {
 
 private func parenthesize(operatorName:String, expressions:Expression...) -> String {
     
-    let expressionString = expressions.map { $0.ast }.joined(separator: " ")
-    let ast = "(\(operatorName) \(expressionString))"
+    let expressionString:String = expressions.map { $0.ast }.joined(separator: " ")
+    let ast:String = "(\(operatorName) \(expressionString))"
     return ast
 }
