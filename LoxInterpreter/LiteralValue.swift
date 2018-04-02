@@ -31,7 +31,7 @@ public enum LiteralValue : CustomStringConvertible {
     case string(value:String)
     case null
     
-    var expression:Expression {
+    public var expression:Expression {
         return Expression.literal(value: self)
     }
 }
