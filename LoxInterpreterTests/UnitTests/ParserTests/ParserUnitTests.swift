@@ -49,5 +49,23 @@ class ParserUnitTests: XCTestCase {
         XCTAssertTrue(ast == "(* (group (+ 4.0 3.0)) (group (* 2.0 4.0)))")
         print(ast)
     }
+    
+    func test_if_it_can_report_empty_parentheses_error() {
+        let code = "()"
+        scanner.source = code
+        let tokens = scanner.scan()
+        parser = Parser(tokens: tokens)
+        let expression = parser.parse()
+        let error = parser.errors.first
+        XCTAssertNil(expression)
+        XCTAssertNotNil(error)
+        
+        switch error! {
+        case .unexpectedExpression(_):
+            XCTAssert(true,  "Invalid expression inside parentheses")
+            return
+        }
+        XCTFail()
+    }
 
 }

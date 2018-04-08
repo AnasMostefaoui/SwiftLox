@@ -9,10 +9,10 @@
 import Foundation
 
 public final class Parser {
-    let tokens:[Token]
-    var errors:[ParserError] = []
-    var current:UInt = 0
-    var cursor:ParserCursor
+    public let tokens:[Token]
+    public private(set) var errors:[ParserError] = []
+    private var current:UInt = 0
+    private var cursor:ParserCursor
     
     public init(tokens:[Token]) {
         self.tokens = tokens
@@ -49,7 +49,7 @@ public final class Parser {
     }
     
     // comparison     → addition ( ( ">" | ">=" | "<" | "<=" ) addition )* ;
-    func comparison() throws -> Expression {
+    private func comparison() throws -> Expression {
         var addition = try self.addition()
         
         while let token = match(tokensTypes: .greater, .greaterOrEqual, .less, .lessOrEqual) {
@@ -62,7 +62,7 @@ public final class Parser {
     }
     
     // multiplication ( ( "-" | "+" ) multiplication )* ;
-    func addition() throws -> Expression {
+    private func addition() throws -> Expression {
         var multiplication = try self.multiplication()
         while let token = match(tokensTypes: .minus, .plus) {
             let rightExpr = try self.multiplication()
@@ -73,7 +73,7 @@ public final class Parser {
     }
     
     // unary ( ( "/" | "*" ) unary )* ;
-    func multiplication() throws -> Expression {
+    private func multiplication() throws -> Expression {
         var unaryExpr = try self.unary()
         while let token = self.match(tokensTypes: .slash, .star) {
             let rightExpr = try self.unary()
@@ -83,7 +83,7 @@ public final class Parser {
     }
     
     // unary → ( "!" | "-" ) unary | primary ;
-    func unary() throws -> Expression {
+    private func unary() throws -> Expression {
         guard let token = match(tokensTypes: .bang, .minus) else {
              return try primary()
         }
@@ -92,7 +92,7 @@ public final class Parser {
     }
     
     //primary → NUMBER | STRING | "false" | "true" | "nil" | "(" expression ")" ;
-    func primary() throws -> Expression {
+    private func primary() throws -> Expression {
 
         guard match(tokensTypes: TokenType.false) == nil else {
             return Expression.literal(value: LiteralValue.bool(value: false))
@@ -112,19 +112,29 @@ public final class Parser {
         }
 
         if match(tokensTypes: .leftParenthesis) != nil {
-            let expression = try self.expression()
-            // consume right parent
-            _ = try self.consume(tokenType: .rightParenthesis,
-                                 message: "Expect ')' after expression.")
-            return Expression.grouping(expression: expression)
+            do {
+                let expression = try self.expression()
+                // consume right parent
+                _ = try self.consume(tokenType: .rightParenthesis,
+                                     message: "Expect ')' after expression.")
+                return Expression.grouping(expression: expression)
+            } catch {
+                
+                let message = "Parsing expression inside parentheses failed at \( cursor.currentToken.line)"
+                let groupError = ParserError.unexpectedExpression(message: message)
+                self.emit(error: groupError)
+                throw groupError
+            }
+
         }
         
-        let error = ParserError.unexpectedExpression(message: "Unexpected expression")
+        let currentToken = cursor.currentToken
+        let error = ParserError.unexpectedExpression(message: "Unexpected expression at line \(currentToken.line)")
         self.emit(error: error)
         throw error
     }
     
-    func consume(tokenType:TokenType, message:String) throws -> Token? {
+    private func consume(tokenType:TokenType, message:String) throws -> Token? {
         guard cursor.check(tokenType: tokenType) else {
             let currentToken = cursor.currentToken
             let errorMessage = "Line \(currentToken.line): at \(currentToken.lexem), \(message)"
@@ -135,11 +145,11 @@ public final class Parser {
         return cursor.advance()
     }
     
-    func emit(error:ParserError) {
+    private func emit(error:ParserError) {
         self.errors.append(error)
     }
     
-    func match(tokensTypes:TokenType...) -> Token? {
+    private func match(tokensTypes:TokenType...) -> Token? {
         
         for token in tokensTypes {
             guard cursor.check(tokenType: token) == true else {
@@ -155,7 +165,7 @@ public final class Parser {
 }
 
 extension Parser {
-    func synchronize() {
+    public func synchronize() {
         
         cursor.advance()
         

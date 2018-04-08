@@ -8,6 +8,6 @@
 
 import Foundation
 
-public enum ParserError : Error {
+public enum ParserError : Error, Equatable {
     case unexpectedExpression(message:String)
 }
