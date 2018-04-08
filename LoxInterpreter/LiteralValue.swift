@@ -31,6 +31,21 @@ public enum LiteralValue : CustomStringConvertible {
     case string(value:String)
     case null
     
+    public var isTrue:Bool {
+        switch self {
+        case .bool(let value):
+            return value == true
+        case .float(let value):
+            return value > 0
+        case .integer(let value):
+            return value > 0
+        case .string(let value):
+            return value.isEmpty == false
+        case .null:
+            return false
+        }
+    }
+    
     public var expression:Expression {
         return Expression.literal(value: self)
     }

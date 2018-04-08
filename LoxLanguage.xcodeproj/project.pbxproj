@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13009A30207A39FE0082EF0B /* ExpressionResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13009A2F207A39FE0082EF0B /* ExpressionResolver.swift */; };
+		13009A32207A3C640082EF0B /* ExpressionResolverUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13009A31207A3C640082EF0B /* ExpressionResolverUnitTests.swift */; };
 		13CAFB7B2050216E004FE796 /* read_from_file_test_file.lox in Resources */ = {isa = PBXBuildFile; fileRef = 13CAFB7A2050216E004FE796 /* read_from_file_test_file.lox */; };
 		13CAFB7D20515FD5004FE796 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CAFB7C20515FD5004FE796 /* StringExtension.swift */; };
 		13DCF10D2057CE9E00D1F70E /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCF10C2057CE9E00D1F70E /* Expression.swift */; };
@@ -66,6 +68,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		13009A2F207A39FE0082EF0B /* ExpressionResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionResolver.swift; sourceTree = "<group>"; };
+		13009A31207A3C640082EF0B /* ExpressionResolverUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionResolverUnitTests.swift; sourceTree = "<group>"; };
 		13CAFB7A2050216E004FE796 /* read_from_file_test_file.lox */ = {isa = PBXFileReference; lastKnownFileType = text; path = read_from_file_test_file.lox; sourceTree = "<group>"; };
 		13CAFB7C20515FD5004FE796 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		13DCF10C2057CE9E00D1F70E /* Expression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expression.swift; sourceTree = "<group>"; };
@@ -144,6 +148,7 @@
 			children = (
 				13E1B0EC205A521C00454503 /* AST */,
 				13DCF10C2057CE9E00D1F70E /* Expression.swift */,
+				13009A2F207A39FE0082EF0B /* ExpressionResolver.swift */,
 			);
 			path = Expressions;
 			sourceTree = "<group>";
@@ -208,6 +213,7 @@
 			children = (
 				A857CEB62060411C00E391FE /* ParserUnitTests.swift */,
 				A86AE84E206846270047915C /* ParserCursorTests.swift */,
+				13009A31207A3C640082EF0B /* ExpressionResolverUnitTests.swift */,
 			);
 			path = ParserTests;
 			sourceTree = "<group>";
@@ -525,6 +531,7 @@
 				A857CEB4206040FA00E391FE /* Parser.swift in Sources */,
 				A85D46E1204C658800DA086D /* LoxError.swift in Sources */,
 				A85D46E0204C658800DA086D /* ScannerInterface.swift in Sources */,
+				13009A30207A39FE0082EF0B /* ExpressionResolver.swift in Sources */,
 				A857CEAC205D0FA400E391FE /* LiteralValue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -536,6 +543,7 @@
 				A857CEB72060411C00E391FE /* ParserUnitTests.swift in Sources */,
 				A85D46E6204C678600DA086D /* ScannerUnitTests.swift in Sources */,
 				A857CEB1205D367700E391FE /* ExpressionsASTUnitTests.swift in Sources */,
+				13009A32207A3C640082EF0B /* ExpressionResolverUnitTests.swift in Sources */,
 				A86AE84F206846270047915C /* ParserCursorTests.swift in Sources */,
 				A85D46D5204C657A00DA086D /* LoxInterpreterTests.swift in Sources */,
 			);
