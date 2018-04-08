@@ -3,7 +3,7 @@
 //  LoxInterpreter
 //
 //  Created by MOSTEFAOUI Anas on 17/03/2018.
-//  Copyright © 2018 Nyris. All rights reserved.
+//  Copyright © 2018 Mohamed Anes MOSTEFAOUI. All rights reserved.
 //
 
 import Foundation
@@ -31,7 +31,7 @@ public enum LiteralValue : CustomStringConvertible {
     case string(value:String)
     case null
     
-    var expression:Expression {
+    public var expression:Expression {
         return Expression.literal(value: self)
     }
 }

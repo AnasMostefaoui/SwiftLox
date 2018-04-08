@@ -3,7 +3,7 @@
 //  LoxLanguage
 //
 //  Created by MOSTEFAOUI Anas on 04/03/2018.
-//  Copyright © 2018 Nyris. All rights reserved.
+//  Copyright © 2018 Mohamed Anes MOSTEFAOUI. All rights reserved.
 //
 
 import Foundation
@@ -23,8 +23,8 @@ public class LoxInterpreter {
             fatalError("File path is empty")
         }
         
-        let fileURL = URL(fileURLWithPath: filePath)
-        guard let fileContent = try? String(contentsOf: fileURL) else {
+        let fileURL:URL = URL(fileURLWithPath: filePath)
+        guard let fileContent:String = try? String(contentsOf: fileURL) else {
             fatalError("File not found")
         }
         
@@ -34,7 +34,7 @@ public class LoxInterpreter {
     public func relp() {
         repeat {
             print("> ")
-            guard let code = readLine(strippingNewline: true) else { continue }
+            guard let code:String = readLine(strippingNewline: true) else { continue }
             execute(code:code)
             self.hadError = false
         } while(shouldExit == false)

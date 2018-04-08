@@ -3,7 +3,7 @@
 //  LoxLanguage
 //
 //  Created by MOSTEFAOUI Anas on 04/03/2018.
-//  Copyright © 2018 Nyris. All rights reserved.
+//  Copyright © 2018 Mohamed Anes MOSTEFAOUI. All rights reserved.
 //
 
 import Foundation
@@ -29,8 +29,8 @@ public class LoxScanner : ScannerInterface {
             fatalError("File path is empty")
         }
         
-        let fileURL = URL(fileURLWithPath: filePath)
-        guard let fileContent = try? String(contentsOf: fileURL) else {
+        let fileURL:URL = URL(fileURLWithPath: filePath)
+        guard let fileContent:String = try? String(contentsOf: fileURL) else {
             fatalError("File not found")
         }
         
@@ -53,18 +53,18 @@ public class LoxScanner : ScannerInterface {
             self.scanToken()
         } while(self.cursor.endOfFile == false)
         
-        let eofToken = Token(type: .eof, lexem: TokenType.eof.rawValue, literal: nil, line: self.cursor.line)
+        let eofToken:Token = Token(type: .eof, lexem: TokenType.eof.rawValue, literal: nil, line: self.cursor.line)
         tokens.append(eofToken)
         return tokens
     }
     
     private func scanToken() {
         // get the caracter
-        guard let character = self.cursor.nextCharacter() else {
+        guard let character:Character = self.cursor.nextCharacter() else {
             return
         }
         
-        let currentCharacter = String(character)
+        let currentCharacter:String = String(character)
         
         switch currentCharacter {
         
@@ -106,7 +106,7 @@ public class LoxScanner : ScannerInterface {
             return
 
         default:
-            let error = LoxError(fileName: self.fileName,
+            let error:LoxError = LoxError(fileName: self.fileName,
                                  filePath:self.filePath,
                                  lineNumber: self.cursor.line,
                                  message: "Unexpected character: \(character)", location: "")
@@ -120,8 +120,8 @@ public class LoxScanner : ScannerInterface {
             return false
         }
 
-        let aheadOffset = UInt(character.count)
-        guard let nextCharacter = self.cursor.lookAhead(by: aheadOffset) else {
+        let aheadOffset:UInt = UInt(character.count)
+        guard let nextCharacter:String = self.cursor.lookAhead(by: aheadOffset) else {
             return false
         }
         
@@ -134,7 +134,7 @@ public class LoxScanner : ScannerInterface {
     }
     
     private func ignoreComment() {
-        while let aheadCharacter = cursor.nextCharacter(), aheadCharacter != "\n" {
+        while let aheadCharacter:Character = cursor.nextCharacter(), aheadCharacter != "\n" {
         }
     }
     
@@ -148,9 +148,9 @@ public class LoxScanner : ScannerInterface {
     }
     
     private func scanAlphaNumeric(from character:String) {
-        var identifier = "\(character)"
+        var identifier:String = "\(character)"
         repeat {
-            guard let aheadCharacter = cursor.lookAhead(by: 1), aheadCharacter.isAlphanumeric() else {
+            guard let aheadCharacter:String = cursor.lookAhead(by: 1), aheadCharacter.isAlphanumeric() else {
                 break
             }
             identifier += aheadCharacter
@@ -158,7 +158,7 @@ public class LoxScanner : ScannerInterface {
             _ = cursor.nextCharacter()
         } while cursor.endOfFile == false
         
-        if let tokenType = TokenType(rawValue: identifier) {
+        if let tokenType:TokenType = TokenType(rawValue: identifier) {
             // this is an keyword
             addToken(tokenType: tokenType)
         } else {
@@ -172,12 +172,12 @@ public class LoxScanner : ScannerInterface {
 
         // parse the integer part
         repeat {
-            guard let nextCharacter = cursor.lookAhead(by: 1),
+            guard let nextCharacter:String = cursor.lookAhead(by: 1),
                 nextCharacter.isDigit() else {
                     break
             }
             
-            guard let validCharacter = cursor.nextCharacter()  else {
+            guard let validCharacter:Character = cursor.nextCharacter()  else {
                 break
             }
             
@@ -192,16 +192,17 @@ public class LoxScanner : ScannerInterface {
         var floatPart:String = ""
         
         // parse the integer part
-        guard let scannedInteger = self.scanInteger(from: numberString) else {
+        guard let scannedInteger:String = self.scanInteger(from: numberString) else {
             // emit error
             return
         }
 
         numberString = scannedInteger
         
-        if cursor.lookAhead(by: 1) == ".", let nextCharacter = cursor.lookAhead(by: 2), nextCharacter.isDigit() {
+        if cursor.lookAhead(by: 1) == ".", let nextCharacter:String = cursor.lookAhead(by: 2), nextCharacter.isDigit() {
             // float part
-            guard let next = cursor.nextCharacter(), let floatScanned = self.scanInteger(from: String(next)) else {
+            guard let next:Character = cursor.nextCharacter(),
+                let floatScanned:String = self.scanInteger(from: String(next)) else {
                 // emit error
                 return
             }
@@ -209,9 +210,9 @@ public class LoxScanner : ScannerInterface {
             floatPart = floatScanned
         }
         
-        let finalNumberString = numberString + floatPart
-        guard let number = Float(finalNumberString) else {
-            let error = LoxError(fileName: self.fileName,
+        let finalNumberString:String = numberString + floatPart
+        guard let number:Float = Float(finalNumberString) else {
+            let error:LoxError = LoxError(fileName: self.fileName,
                                  filePath: self.filePath,
                                  lineNumber: cursor.line,
                                  message: "Invalid number literal: \(numberString)", location: "")
@@ -219,7 +220,7 @@ public class LoxScanner : ScannerInterface {
             return
         }
         
-        let literal = LiteralValue.float(value: number)
+        let literal:LiteralValue = LiteralValue.float(value: number)
         self.addToken(tokenType: TokenType.number, literal: literal, line: cursor.line)
         
     }
@@ -230,7 +231,7 @@ public class LoxScanner : ScannerInterface {
         
         repeat {
             
-            guard let validCharacter = cursor.nextCharacter() else {
+            guard let validCharacter:Character = cursor.nextCharacter() else {
                 break
             }
             
@@ -244,7 +245,7 @@ public class LoxScanner : ScannerInterface {
         } while cursor.endOfFile == false
         
         guard aheadCharacter == "\"" else {
-            let error = LoxError(fileName: self.fileName,
+            let error:LoxError = LoxError(fileName: self.fileName,
                                  filePath: self.filePath,
                                  lineNumber: cursor.line,
                                  message: "Unterminated string.", location: "")
@@ -253,12 +254,12 @@ public class LoxScanner : ScannerInterface {
             
         }
 
-        let literal = LiteralValue.string(value: stringLiteral)
+        let literal:LiteralValue = LiteralValue.string(value: stringLiteral)
         self.addToken(tokenType: TokenType.string, literal: literal, line: cursor.line)
     }
     
     private func scanSingleCharacter(character:String) -> TokenType? {
-        guard let tokenType = TokenType(rawValue: character) else {
+        guard let tokenType:TokenType = TokenType(rawValue: character) else {
             return nil
         }
         self.addToken(tokenType: tokenType)
@@ -274,8 +275,8 @@ extension LoxScanner {
     }
     
     private func addToken(tokenType:TokenType, lexem:String? = nil, literal: LiteralValue? = nil, line:Int) {
-        let lexem = lexem ?? self.cursor.getCurrentLexem()
-        let token = Token(type: tokenType, lexem: lexem, literal: literal, line: line)
+        let lexem:String = lexem ?? self.cursor.getCurrentLexem()
+        let token:Token = Token(type: tokenType, lexem: lexem, literal: literal, line: line)
         self.emit(token: token)
     }
     

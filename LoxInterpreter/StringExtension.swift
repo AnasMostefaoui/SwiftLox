@@ -3,7 +3,7 @@
 //  LoxInterpreter
 //
 //  Created by MOHAMED ANES on 3/8/18.
-//  Copyright © 2018 Nyris. All rights reserved.
+//  Copyright © 2018 Mohamed Anes MOSTEFAOUI. All rights reserved.
 //
 
 import Foundation
@@ -11,8 +11,8 @@ import Foundation
 extension Character {
     public func isDigit() -> Bool {
         
-        let digits = CharacterSet.decimalDigits
-        var isDigit = false
+        let digits:CharacterSet = CharacterSet.decimalDigits
+        var isDigit:Bool = false
         self.unicodeScalars.forEach {
             isDigit = digits.contains($0)
             if  isDigit == false {
@@ -28,8 +28,8 @@ extension Character {
     
     public func isAlpha() -> Bool {
         
-        let letter = CharacterSet.letters
-        var isLetter = false
+        let letter:CharacterSet = CharacterSet.letters
+        var isLetter:Bool = false
         self.unicodeScalars.forEach {
             isLetter = letter.contains($0)
             if  isLetter == false {
@@ -43,8 +43,8 @@ extension Character {
 extension String {
     public func isDigit() -> Bool {
         
-        let digits = CharacterSet.decimalDigits
-        var isDigit = false
+        let digits:CharacterSet = CharacterSet.decimalDigits
+        var isDigit:Bool = false
         self.unicodeScalars.forEach {
             isDigit = digits.contains($0)
             if  isDigit == false {
