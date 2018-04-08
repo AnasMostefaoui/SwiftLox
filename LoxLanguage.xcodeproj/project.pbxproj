@@ -15,6 +15,9 @@
 		A857CEAC205D0FA400E391FE /* LiteralValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A857CEAB205D0FA400E391FE /* LiteralValue.swift */; };
 		A857CEAE205D33F900E391FE /* Expression+AST.swift in Sources */ = {isa = PBXBuildFile; fileRef = A857CEAD205D33F900E391FE /* Expression+AST.swift */; };
 		A857CEB1205D367700E391FE /* ExpressionsASTUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A857CEB0205D367700E391FE /* ExpressionsASTUnitTests.swift */; };
+		A857CEB4206040FA00E391FE /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A857CEB3206040FA00E391FE /* Parser.swift */; };
+		A857CEB72060411C00E391FE /* ParserUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A857CEB62060411C00E391FE /* ParserUnitTests.swift */; };
+		A857CEB92060491D00E391FE /* ParserCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A857CEB82060491D00E391FE /* ParserCursor.swift */; };
 		A85D46A0204C29E900DA086D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85D469F204C29E900DA086D /* main.swift */; };
 		A85D46D0204C657A00DA086D /* LoxInterpreter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A85D46C7204C657A00DA086D /* LoxInterpreter.framework */; };
 		A85D46D5204C657A00DA086D /* LoxInterpreterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85D46D4204C657A00DA086D /* LoxInterpreterTests.swift */; };
@@ -27,6 +30,8 @@
 		A85D46E3204C658800DA086D /* LoxInterpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85D46A6204C2B9000DA086D /* LoxInterpreter.swift */; };
 		A85D46E6204C678600DA086D /* ScannerUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85D46C0204C642300DA086D /* ScannerUnitTests.swift */; };
 		A85D46E8204C97E200DA086D /* ScannerCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85D46E7204C97E200DA086D /* ScannerCursor.swift */; };
+		A86AE84D206841A20047915C /* ParserError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86AE84C206841A20047915C /* ParserError.swift */; };
+		A86AE84F206846270047915C /* ParserCursorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86AE84E206846270047915C /* ParserCursorTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +74,9 @@
 		A857CEAB205D0FA400E391FE /* LiteralValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiteralValue.swift; sourceTree = "<group>"; };
 		A857CEAD205D33F900E391FE /* Expression+AST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expression+AST.swift"; sourceTree = "<group>"; };
 		A857CEB0205D367700E391FE /* ExpressionsASTUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionsASTUnitTests.swift; sourceTree = "<group>"; };
+		A857CEB3206040FA00E391FE /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		A857CEB62060411C00E391FE /* ParserUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserUnitTests.swift; sourceTree = "<group>"; };
+		A857CEB82060491D00E391FE /* ParserCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserCursor.swift; sourceTree = "<group>"; };
 		A85D469C204C29E900DA086D /* LoxLanguage */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LoxLanguage; sourceTree = BUILT_PRODUCTS_DIR; };
 		A85D469F204C29E900DA086D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		A85D46A6204C2B9000DA086D /* LoxInterpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoxInterpreter.swift; sourceTree = "<group>"; };
@@ -85,6 +93,8 @@
 		A85D46D4204C657A00DA086D /* LoxInterpreterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoxInterpreterTests.swift; sourceTree = "<group>"; };
 		A85D46D6204C657A00DA086D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A85D46E7204C97E200DA086D /* ScannerCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerCursor.swift; sourceTree = "<group>"; };
+		A86AE84C206841A20047915C /* ParserError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserError.swift; sourceTree = "<group>"; };
+		A86AE84E206846270047915C /* ParserCursorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserCursorTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +193,25 @@
 			path = AST;
 			sourceTree = "<group>";
 		};
+		A857CEB2206040D100E391FE /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+				A857CEB3206040FA00E391FE /* Parser.swift */,
+				A857CEB82060491D00E391FE /* ParserCursor.swift */,
+				A86AE84C206841A20047915C /* ParserError.swift */,
+			);
+			path = Parser;
+			sourceTree = "<group>";
+		};
+		A857CEB52060410600E391FE /* ParserTests */ = {
+			isa = PBXGroup;
+			children = (
+				A857CEB62060411C00E391FE /* ParserUnitTests.swift */,
+				A86AE84E206846270047915C /* ParserCursorTests.swift */,
+			);
+			path = ParserTests;
+			sourceTree = "<group>";
+		};
 		A85D4693204C29E900DA086D = {
 			isa = PBXGroup;
 			children = (
@@ -217,6 +246,7 @@
 		A85D46C8204C657A00DA086D /* LoxInterpreter */ = {
 			isa = PBXGroup;
 			children = (
+				A857CEB2206040D100E391FE /* Parser */,
 				13DCF1102057D71300D1F70E /* Tools */,
 				13DCF10B2057CE8C00D1F70E /* Expressions */,
 				A85D46A6204C2B9000DA086D /* LoxInterpreter.swift */,
@@ -248,6 +278,7 @@
 		A85D46E4204C66D100DA086D /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				A857CEB52060410600E391FE /* ParserTests */,
 				A857CEAF205D365C00E391FE /* AST */,
 				13DCF1132057D89F00D1F70E /* Tools */,
 				A85D46E5204C66D700DA086D /* ScannerTests */,
@@ -357,7 +388,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = Nyris;
 				TargetAttributes = {
 					A84EE490205CFF20009CEB6D = {
@@ -484,11 +515,14 @@
 				A85D46E3204C658800DA086D /* LoxInterpreter.swift in Sources */,
 				A85D46DF204C658800DA086D /* LoxScanner.swift in Sources */,
 				13DCF10D2057CE9E00D1F70E /* Expression.swift in Sources */,
+				A86AE84D206841A20047915C /* ParserError.swift in Sources */,
 				A85D46E2204C658800DA086D /* Token.swift in Sources */,
 				A85D46DE204C658800DA086D /* TokenType.swift in Sources */,
 				A857CEAE205D33F900E391FE /* Expression+AST.swift in Sources */,
+				A857CEB92060491D00E391FE /* ParserCursor.swift in Sources */,
 				13CAFB7D20515FD5004FE796 /* StringExtension.swift in Sources */,
 				A85D46E8204C97E200DA086D /* ScannerCursor.swift in Sources */,
+				A857CEB4206040FA00E391FE /* Parser.swift in Sources */,
 				A85D46E1204C658800DA086D /* LoxError.swift in Sources */,
 				A85D46E0204C658800DA086D /* ScannerInterface.swift in Sources */,
 				A857CEAC205D0FA400E391FE /* LiteralValue.swift in Sources */,
@@ -499,8 +533,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A857CEB72060411C00E391FE /* ParserUnitTests.swift in Sources */,
 				A85D46E6204C678600DA086D /* ScannerUnitTests.swift in Sources */,
 				A857CEB1205D367700E391FE /* ExpressionsASTUnitTests.swift in Sources */,
+				A86AE84F206846270047915C /* ParserCursorTests.swift in Sources */,
 				A85D46D5204C657A00DA086D /* LoxInterpreterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -550,6 +586,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -557,6 +594,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -607,6 +645,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -614,6 +653,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
