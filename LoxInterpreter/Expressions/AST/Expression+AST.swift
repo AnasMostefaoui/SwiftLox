@@ -8,7 +8,7 @@
 
 import Foundation
 
-// Inspired from Ahmad Alhashemi great works
+// Inspired from Ahmad Alhashemi great work
 // https://github.com/hashemi/slox
 extension Expression {
     
