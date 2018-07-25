@@ -7,3 +7,4 @@ Each chapter will be available in a dedicated branch
 * Parsing expressions chapter : https://github.com/AnasMostefaoui/SwiftLox/tree/Chapter/ParsingExpressions
 
 change test
+simulate
